@@ -17,6 +17,20 @@
   color: white;
 }
 
+.haha{
+  white-space:nowrap;
+  display: inline-block;
+  float:right;
+  width:200px;
+  padding-left :10px;
+
+}
+
+select * {
+  max-width:80%;
+  min-width:40%;
+  width:80px;
+}
 .App-title {
   font-size: 1.5em;
 }

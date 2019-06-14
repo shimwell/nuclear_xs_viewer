@@ -132,6 +132,7 @@ function FilterDropdowns(props) {
   const filter_data = props.filter_data;
   return (
     <div>
+      
       {filter_data.map((x, i) => {
         const meta_data_dropdown_dict = [];
         const list_of_dropdown_values = x["distinct_values"];
@@ -155,16 +156,30 @@ function FilterDropdowns(props) {
           });
         }
 
+        //<label for="id">Some Label</label>
         return (
+          <div>
+            <label for={'dropdown_'+field_values.replace(' ','_')}>{field_values}
+          <div class="haha" >
           <Select
+            id={'dropdown_'+field_values.replace(' ','_')}
+            //name={'dropdown_'+field_values.replace(' ','_')}
             key={i}
             options={meta_data_dropdown_dict}
             //placeholder={field_values}
             name={field_values}
             //isClearable={true}
             onChange={props.event_handler}
-            className="meta_data_dropdown"
+            className="meta_data_dropdown" 
           />
+          
+          </div>
+        
+          </label>
+          </div>
+         
+          
+          
         );
       })}
     </div>
@@ -298,7 +313,7 @@ function PlotlyGraph(props) {
         y: multiplied_y_axis,
         type: "scatter",
         mode: "lines+points",
-        name: props.plotted_data[key]["filename"]
+        name: props.plotted_data[key]['Atomic symbol']+props.plotted_data[key]['Mass number'] + ' ('+props.plotted_data[key]['Incident particle']+','+props.plotted_data[key]['Reaction products']+')',
       });
     }
   }
@@ -724,15 +739,11 @@ class App extends Component {
         <Container>
           <Row>
             <Col>
-              <h1 className="heading">Cross section plotter</h1>
+              <h1 className="heading">Cross section plotter - ShimPlotWell2</h1>
             </Col>
           </Row>
           <Row>
-            <Col md="2" lg="2">
-              <LabelsForDropdowns filter_data={filter_data} />
-              {/* <LabelsForAxisDropdowns visible={visible_axis_dropdowns} /> */}
-            </Col>
-            <Col md="3" lg="3">
+            <Col md="5" lg="5">
               <FilterDropdowns
                 filter_data={filter_data}
                 event_handler={this.handle_meta_data_dropdown_change_function}
@@ -838,6 +849,13 @@ class App extends Component {
               <div>
                 <br />
 
+                <PlottedResulltsTable
+                  query_Results={this.state.plotted_data}
+                  data={this.state.plotted_data}
+                  columns={columns}
+                  loading={this.state.loading}
+                />
+                <br />
                 <QueryResulltsTable
                   query_Results={this.state.query_result}
                   data={results_of_db_query}
@@ -845,13 +863,6 @@ class App extends Component {
                   loading={this.state.loading}
                 />
 
-                <br />
-                <PlottedResulltsTable
-                  query_Results={this.state.plotted_data}
-                  data={this.state.plotted_data}
-                  columns={columns}
-                  loading={this.state.loading}
-                />
               </div>
             </Col>
           </Row>
