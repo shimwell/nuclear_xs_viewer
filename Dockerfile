@@ -4,6 +4,7 @@ FROM node:12.2.0-alpine as build
 # sudo docker build -t shimwell:nuclear_xs_viewer .
 
 # docker run -v ${PWD}:/app -v /app/node_modules -p 3001:3000 --rm shimwell:nuclear_xs_viewer
+# sudo docker run -it -p 80:80 -rm shimwell:nuclear_xs_viewer
 
 # set working directory
 WORKDIR /app
@@ -32,14 +33,14 @@ RUN npm install rc-slider --save
 COPY . /app
 
 RUN npm update
-RUN npm ls
+# RUN npm ls
 RUN npm run build
 
 
 # start app
-CMD ["npm", "start"]
+# CMD ["npm", "start"]
 
-# FROM nginx:1.16.0-alpine
-# COPY --from=build /app/build /usr/share/nginx/html
-# EXPOSE 80
-# CMD ["nginx", "-g", "daemon off;"]
+FROM nginx:1.16.0-alpine
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
