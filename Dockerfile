@@ -9,8 +9,10 @@ FROM node:12.2.0-alpine as build
 # set working directory
 WORKDIR /app
 
+
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
+ENV NODE_OPTIONS="–max-old-space-size=2048"
 
 # install and cache app dependencies
 COPY package.json /app/package.json
