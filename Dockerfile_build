@@ -1,4 +1,4 @@
-sudo docker build -t shimwell:nuclear_xs_viewer -f Docerfile_build -v $PWD:/app/build
+#sudo docker run -t shimwell:nuclear_xs_viewer_build -v $PWD:/app/build
 
 # docker run -v ${PWD}:/app -v /app/node_modules -p 3001:3000 --rm shimwell:nuclear_xs_viewer
 # sudo docker run -it -p 80:80 -rm shimwell:nuclear_xs_viewer
