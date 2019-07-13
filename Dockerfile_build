@@ -3,6 +3,8 @@
 # docker run -v ${PWD}:/app -v /app/node_modules -p 3001:3000 --rm shimwell:nuclear_xs_viewer
 # sudo docker run -it -p 80:80 -rm shimwell:nuclear_xs_viewer
 
+FROM node:12.2.0-alpine as build
+
 # set working directory
 WORKDIR /app
 
