@@ -31,13 +31,17 @@ RUN npm install reactstrap --save
 RUN npm install react-plotly.js --save
 RUN npm install plotly.js --save
 RUN npm install rc-slider --save 
+RUN npm install dotenv --save
 
+RUN echo updating app code
 COPY . /app
 
 RUN npm update
 # RUN npm ls
-RUN npm run build
+# ENV HOST_IP = 34.68.223.199
 
+# RUN npm run build
+RUN REACT_APP_HOST_IP=http://34.68.223.199 npm run build
 
 # start app
 # CMD ["npm", "start"]
