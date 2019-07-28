@@ -1,5 +1,5 @@
 # base image
-FROM node:12.2.0-alpine as build
+FROM node:12.2.0-stretch as build
 
 # sudo docker build -t shimwell:nuclear_xs_viewer .
 
