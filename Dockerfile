@@ -48,7 +48,7 @@ RUN npm update
 RUN apt-get update
 RUN apt-get install dnsutils --yes
 RUN dig +short myip.opendns.com @resolver1.opendns.com
-RUN myip="$(dig +short myip.opendns.com @resolver1.opendns.com)"
+RUN myip="$(dig +short myip.opendns.com @resolver1.opendns.com)":8080
 RUN echo "My WAN/Public IP address: ${myip}"
 RUN REACT_APP_HOST_IP=${myip} npm run build
 
