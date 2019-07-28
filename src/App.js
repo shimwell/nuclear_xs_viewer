@@ -37,7 +37,7 @@ const marks = {
 const SliderWithTooltip = createSliderWithTooltip(Slider);
 
 // const REST_API_EXAMPLE_URL = "http://35.225.80.160:80";
-const REST_API_EXAMPLE_URL = process.env.REACT_APP_HOST_IP +":8080"
+const REST_API_EXAMPLE_URL = process.env.REACT_APP_HOST_IP.slice(0, -1) +":8080"
 
 function QueryResulltsTable(props) {
   if (props.query_Results.length === 0) {
