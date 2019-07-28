@@ -45,6 +45,7 @@ RUN npm update
 
 # RUN npm run build
 # RUN REACT_APP_HOST_IP=http://35.225.255.223 npm run build
+RUN apt-get update
 RUN apt-get install dnsutils --yes
 RUN dig +short myip.opendns.com @resolver1.opendns.com
 RUN myip="$(dig +short myip.opendns.com @resolver1.opendns.com)"
