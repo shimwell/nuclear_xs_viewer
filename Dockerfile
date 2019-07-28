@@ -40,11 +40,16 @@ RUN npm update
 # RUN npm ls
 # ENV HOST_IP = 34.68.223.199
 
-ARG webhostip
-RUN REACT_APP_HOST_IP=$webhostip npm run build
+# ARG webhostip
+# RUN REACT_APP_HOST_IP=$webhostip npm run build
 
 # RUN npm run build
 # RUN REACT_APP_HOST_IP=http://35.225.255.223 npm run build
+
+RUN dig +short myip.opendns.com @resolver1.opendns.com
+RUN myip="$(dig +short myip.opendns.com @resolver1.opendns.com)"
+RUN echo "My WAN/Public IP address: ${myip}"
+RUN REACT_APP_HOST_IP=${myip} npm run build
 
 # start app
 # CMD ["npm", "start"]
