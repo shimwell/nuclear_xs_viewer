@@ -38,7 +38,8 @@ const SliderWithTooltip = createSliderWithTooltip(Slider);
 
 // const REST_API_EXAMPLE_URL = "http://35.225.80.160:80";
 // const REST_API_EXAMPLE_URL = process.env.REACT_APP_HOST_IP.slice(0, -1) +":8080"
-const REST_API_EXAMPLE_URL = process.env.REACT_APP_HOST_IP
+// const REST_API_EXAMPLE_URL = process.env.REACT_APP_HOST_IP
+const REST_API_EXAMPLE_URL = "http://127.0.0.1:8080"
 
 function QueryResulltsTable(props) {
   if (props.query_Results.length === 0) {
@@ -97,38 +98,38 @@ function PlottedResulltsTable(props) {
   );
 }
 
-function LabelsForAxisDropdowns(props) {
-  if (props.visible === false) {
-    return <br />;
-  } else {
-    return (
-      <div>
-        <div className="filter_labels">Select X axis:</div>
-        <div className="filter_labels">Select Y axis:</div>
-      </div>
-    );
-  }
-}
+// function LabelsForAxisDropdowns(props) {
+//   if (props.visible === false) {
+//     return <br />;
+//   } else {
+//     return (
+//       <div>
+//         <div className="filter_labels">Select X axis:</div>
+//         <div className="filter_labels">Select Y axis:</div>
+//       </div>
+//     );
+//   }
+// }
 
-function LabelsForDropdowns(props) {
-  const filter_data = props.filter_data;
+// function LabelsForDropdowns(props) {
+//   const filter_data = props.filter_data;
 
-  return (
-    <div>
-      {filter_data.map((x, i) => {
-        const field_values = x["field"][0];
+//   return (
+//     <div>
+//       {filter_data.map((x, i) => {
+//         const field_values = x["field"][0];
         
-        return (
-          <div key={i} className="filter_labels">
-            {field_values}:
-          </div>
-        );
-      })}
-      <hr />
-      <br />
-    </div>
-  );
-}
+//         return (
+//           <div key={i} className="filter_labels">
+//             {field_values}:
+//           </div>
+//         );
+//       })}
+//       <hr />
+//       <br />
+//     </div>
+//   );
+// }
 
 function FilterDropdowns(props) {
   const filter_data = props.filter_data;
@@ -188,29 +189,29 @@ function FilterDropdowns(props) {
   );
 }
 
-function AxisDropdowns(props) {
-  if (props.visible === false) {
-    return <br />;
-  }
-  var dropdown_id;
-  if (props.axis_selection === "") {
-    dropdown_id = "axis_data_dropdown_highlighted";
-  } else {
-    dropdown_id = "axis_data_dropdown";
-  }
-  return (
-    <div id={dropdown_id}>
-      <Select
-        options={props.axis_data}
-        //placeholder={props.placeholder}
-        isClearable={false}
-        onChange={props.event_handler}
-        className="axis_data_dropdown"
-        id={dropdown_id}
-      />
-    </div>
-  );
-}
+// function AxisDropdowns(props) {
+//   if (props.visible === false) {
+//     return <br />;
+//   }
+//   var dropdown_id;
+//   if (props.axis_selection === "") {
+//     dropdown_id = "axis_data_dropdown_highlighted";
+//   } else {
+//     dropdown_id = "axis_data_dropdown";
+//   }
+//   return (
+//     <div id={dropdown_id}>
+//       <Select
+//         options={props.axis_data}
+//         //placeholder={props.placeholder}
+//         isClearable={false}
+//         onChange={props.event_handler}
+//         className="axis_data_dropdown"
+//         id={dropdown_id}
+//       />
+//     </div>
+//   );
+// }
 
 function DownloadButton(props) {
   if (Object.keys(props.plotted_data).length === 0) {
@@ -231,20 +232,16 @@ function DownloadButton(props) {
   console.log("string_of_ids", string_of_ids);
 
   return (
-    <a href={REST_API_EXAMPLE_URL + "/download_py3?ids=" + string_of_ids} download="my_cross_sections.txt">
+    <a href={REST_API_EXAMPLE_URL + props.endpoint +"?ids=" + string_of_ids} download="my_cross_sections.txt">
       {" "}
-      <Button>Download data</Button>
+      <Button>{props.title}</Button>
     </a>
+    
   )
 }
 
 function AxisScaleRadioButton(props) {
-
-
-  if (
-    Object.keys(props.plotted_data).length === 0 ||
-    Object.keys(props.selected).length === 0
-  ) {
+  if (Object.keys(props.plotted_data).length === 0 || Object.keys(props.selected).length === 0) {
     console.log("nothing plotted");
     return <br />;
 }
@@ -258,10 +255,7 @@ function AxisScaleRadioButton(props) {
 }
 
 function ScaleSlider(props){
-  if (
-    Object.keys(props.plotted_data).length === 0 ||
-    Object.keys(props.selected).length === 0
-  ) {
+  if (Object.keys(props.plotted_data).length === 0 || Object.keys(props.selected).length === 0) {
     console.log("nothing plotted");
     return <br />;
 }
@@ -750,7 +744,7 @@ class App extends Component {
                 filter_data={filter_data}
                 event_handler={this.handle_meta_data_dropdown_change_function}
               />
-              <hr />
+              {/* <hr /> */}
               <br />
 
               {/* <AxisDropdowns
@@ -783,7 +777,15 @@ class App extends Component {
 
               {this.make_clear_button()}
 
-              <DownloadButton plotted_data={this.state.plotted_data} />
+              <DownloadButton plotted_data={this.state.plotted_data}
+                              title="Download data (json)"
+                              endpoint="/download_json"
+                              />
+
+              <DownloadButton plotted_data={this.state.plotted_data}
+                              title="Download data (csv)"
+                              endpoint="/download_csv"
+                              />
               <br />
               <br />
 
