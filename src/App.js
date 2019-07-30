@@ -98,39 +98,6 @@ function PlottedResulltsTable(props) {
   );
 }
 
-// function LabelsForAxisDropdowns(props) {
-//   if (props.visible === false) {
-//     return <br />;
-//   } else {
-//     return (
-//       <div>
-//         <div className="filter_labels">Select X axis:</div>
-//         <div className="filter_labels">Select Y axis:</div>
-//       </div>
-//     );
-//   }
-// }
-
-// function LabelsForDropdowns(props) {
-//   const filter_data = props.filter_data;
-
-//   return (
-//     <div>
-//       {filter_data.map((x, i) => {
-//         const field_values = x["field"][0];
-        
-//         return (
-//           <div key={i} className="filter_labels">
-//             {field_values}:
-//           </div>
-//         );
-//       })}
-//       <hr />
-//       <br />
-//     </div>
-//   );
-// }
-
 function FilterDropdowns(props) {
   const filter_data = props.filter_data;
   return (
@@ -188,30 +155,6 @@ function FilterDropdowns(props) {
     </div>
   );
 }
-
-// function AxisDropdowns(props) {
-//   if (props.visible === false) {
-//     return <br />;
-//   }
-//   var dropdown_id;
-//   if (props.axis_selection === "") {
-//     dropdown_id = "axis_data_dropdown_highlighted";
-//   } else {
-//     dropdown_id = "axis_data_dropdown";
-//   }
-//   return (
-//     <div id={dropdown_id}>
-//       <Select
-//         options={props.axis_data}
-//         //placeholder={props.placeholder}
-//         isClearable={false}
-//         onChange={props.event_handler}
-//         className="axis_data_dropdown"
-//         id={dropdown_id}
-//       />
-//     </div>
-//   );
-// }
 
 function DownloadButton(props) {
   if (Object.keys(props.plotted_data).length === 0) {
@@ -403,10 +346,6 @@ class App extends Component {
       y_axis_mutliplier:0 
     };
 
-    // this.handle_y_axis_data_dropdown_change_function = this.handle_y_axis_data_dropdown_change_function.bind(this);
-
-    // this.handle_x_axis_data_dropdown_change_function = this.handle_x_axis_data_dropdown_change_function.bind(this);
-
     this.handle_meta_data_dropdown_change_function = this.handle_meta_data_dropdown_change_function.bind(this);
 
     this.handle_xaxis_scale_change = this.handle_xaxis_scale_change.bind(this);
@@ -542,27 +481,6 @@ class App extends Component {
     console.log("current query", this.state.query);
   }
 
-  // handle_x_axis_data_dropdown_change_function(optionSelected) {
-  //   const value = optionSelected.value;
-
-  //   console.log("new x axis field selected", value);
-
-  //   this.setState({ x_axis_label: value }, () => {
-  //     console.log("new X axis label state", this.state.x_axis_label);
-  //   });
-  // }
-
-  // handle_y_axis_data_dropdown_change_function(optionSelected) {
-  //   const value = optionSelected.value;
-
-  //   console.log("new y axis field selected", value);
-
-  //   this.setState({ y_axis_label: value }, () => {
-  //     console.log("new Y axis label state", this.state.y_axis_label);
-  //   });
-  // }
-
-//["_id"]["$oid"]
 
   ReturnColumns(check_box_class) {
     const columns = [
@@ -723,19 +641,14 @@ class App extends Component {
     const columns = this.ReturnColumns(check_box_class);
     
     console.log('columns',columns)
-    // var visible_axis_dropdowns;
-    // if (Object.keys(this.state.query_result).length === 0) {
-    //   visible_axis_dropdowns = false;
-    // } else {
-    //   visible_axis_dropdowns = true;
-    // }
+
 
     return (
       <div className="App">
         <Container>
           <Row>
             <Col>
-              <h1 className="heading">Cross section plotter - ShimPlotWell2</h1>
+              <h1 className="heading">Cross section plotter - ShimPlotWell</h1>
             </Col>
           </Row>
           <Row>
@@ -744,24 +657,10 @@ class App extends Component {
                 filter_data={filter_data}
                 event_handler={this.handle_meta_data_dropdown_change_function}
               />
-              {/* <hr /> */}
+
               <br />
 
-              {/* <AxisDropdowns
-                placeholder="Select x axis"
-                axis_data={axis_data}
-                axis_selection={this.state.x_axis_label}
-                event_handler={this.handle_x_axis_data_dropdown_change_function}
-                visible={visible_axis_dropdowns}
-              />
 
-              <AxisDropdowns
-                placeholder="Select y axis"
-                axis_data={axis_data}
-                axis_selection={this.state.y_axis_label}
-                event_handler={this.handle_y_axis_data_dropdown_change_function}
-                visible={visible_axis_dropdowns}
-              /> */}
             </Col>
             <Col md="7" lg="7">
               <PlotlyGraph
