@@ -41,6 +41,8 @@ const SliderWithTooltip = createSliderWithTooltip(Slider);
 // const REST_API_EXAMPLE_URL = process.env.REACT_APP_HOST_IP
 const REST_API_EXAMPLE_URL = "http://127.0.0.1:8080"
 
+document.title = 'ShimPlotWell'
+
 function QueryResulltsTable(props) {
   if (props.query_Results.length === 0) {
     return <br />;
