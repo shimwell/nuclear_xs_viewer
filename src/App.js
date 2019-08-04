@@ -246,13 +246,22 @@ function PlotlyGraph(props) {
             
         });
 
+      
 
+      var [protons, element_symbol, element_name] = props.plotted_data[key]['Proton number / element'].split(' ')
+      var [mt_number, products] = props.plotted_data[key]['MT number / reaction products'].split(' ')
+      var mass_number = props.plotted_data[key]['Mass number']
+      var incident_particle = 'n'
+      var legend_name = element_symbol+mass_number + ' ('+ incident_particle+','+products+')' 
+      // var legend_name = props.plotted_data[key]['Atomic symbol']+props.plotted_data[key]['Mass number'] + ' ('+props.plotted_data[key]['Incident particle']+','+props.plotted_data[key]['Reaction products']+')',
+
+        
       list_of_data_dictionaries.push({
         x: multiplied_x_axis,
         y: multiplied_y_axis,
         type: "scatter",
         mode: "lines+points",
-        name: props.plotted_data[key]['Atomic symbol']+props.plotted_data[key]['Mass number'] + ' ('+props.plotted_data[key]['Incident particle']+','+props.plotted_data[key]['Reaction products']+')',
+        name: legend_name
       });
     }
   }
@@ -298,7 +307,7 @@ function PlotlyGraph(props) {
           // showticksuffix : "none"
         },
         yaxis: {
-          title: props.y_axis_label,
+          title: props.y_axis_label + ' (barns)',
           type: props.y_axis_scale
         },
         margin: {
