@@ -56,8 +56,8 @@ function QueryResulltsTable(props) {
 
 
   
-  console.log("table_key", table_key);
-  console.log("props.data query tabe", props.data);
+  //console.log("table_key", table_key);
+  //console.log("props.data query tabe", props.data);
   return (
     <ReactTable
       key={table_key}
@@ -73,20 +73,20 @@ function QueryResulltsTable(props) {
 function PlottedResulltsTable(props) {
   if (Object.keys(props.query_Results).length === 0) {
     return <br />;
-    console.log("no plotted data so no table");
+    //console.log("no plotted data so no table");
   }
 
   const data = [];
   const table_key = [];
-  console.log("props.data plotted table", props.data);
+  //console.log("props.data plotted table", props.data);
   Object.keys(props.data).forEach(function(key) {
-    console.log("props.data", key, props.data[key]);
+    //console.log("props.data", key, props.data[key]);
     data.push(props.data[key]);
     // table_key.push(props.data[key]["_id"]["$oid"]);
     table_key.push(props.data[key]["id"]);
   });
 
-  console.log("props.data data.length", data.length);
+  //console.log("props.data data.length", data.length);
 
   return (
     <ReactTable
@@ -165,8 +165,8 @@ function DownloadButton(props) {
 
   var list_of_ids = [];
   Object.keys(props.plotted_data).map(function(key) {
-    // console.log("Key: ", { key }, "Value: ", props.plotted_data[key]["_id"]["$oid"]);
-    console.log("Key: ", { key }, "Value: ", props.plotted_data[key]["_id"]);
+    // //console.log("Key: ", { key }, "Value: ", props.plotted_data[key]["_id"]["$oid"]);
+    //console.log("Key: ", { key }, "Value: ", props.plotted_data[key]["_id"]);
     // list_of_ids.push(props.plotted_data[key]["_id"]["$oid"]);
     list_of_ids.push(props.plotted_data[key]["id"]);
   });
@@ -174,7 +174,7 @@ function DownloadButton(props) {
 
   string_of_ids = "'" + string_of_ids + "'";
 
-  console.log("string_of_ids", string_of_ids);
+  //console.log("string_of_ids", string_of_ids);
 
   return (
     <a href={REST_API_EXAMPLE_URL + props.endpoint +"?ids=" + string_of_ids} download="my_cross_sections.txt">
@@ -187,7 +187,7 @@ function DownloadButton(props) {
 
 function AxisScaleRadioButton(props) {
   if (Object.keys(props.plotted_data).length === 0 || Object.keys(props.selected).length === 0) {
-    console.log("nothing plotted");
+    //console.log("nothing plotted");
     return <br />;
 }
   return (
@@ -201,7 +201,7 @@ function AxisScaleRadioButton(props) {
 
 function ScaleSlider(props){
   if (Object.keys(props.plotted_data).length === 0 || Object.keys(props.selected).length === 0) {
-    console.log("nothing plotted");
+    //console.log("nothing plotted");
     return <br />;
 }
 
@@ -216,26 +216,26 @@ function ScaleSlider(props){
 
 
 function PlotlyGraph(props) {
-  console.log("props.plotted_data", props.plotted_data);
-  console.log("props.selected", Object.keys(props.selected).length);
-  console.log("props.plotted_data.length", Object.keys(props.plotted_data).length);
-  console.log("props.x_axis_label", props.x_axis_label);
-  console.log("props.y_axis_label", props.y_axis_label);
-  console.log("props.x_axis_scale", props.x_axis_scale);
-  console.log("props.y_axis_scale", props.y_axis_scale);
-  console.log("props.x_axis_mutliplier", props.x_axis_mutliplier);
-  console.log("props.y_axis_mutliplier", props.y_axis_mutliplier);
+  // console.log("props.plotted_data", props.plotted_data);
+  // console.log("props.selected", Object.keys(props.selected).length);
+  // console.log("props.plotted_data.length", Object.keys(props.plotted_data).length);
+  // console.log("props.x_axis_label", props.x_axis_label);
+  // console.log("props.y_axis_label", props.y_axis_label);
+  // console.log("props.x_axis_scale", props.x_axis_scale);
+  // console.log("props.y_axis_scale", props.y_axis_scale);
+  // console.log("props.x_axis_mutliplier", props.x_axis_mutliplier);
+  // console.log("props.y_axis_mutliplier", props.y_axis_mutliplier);
   const list_of_data_dictionaries = [];
   if (
     Object.keys(props.plotted_data).length === 0 ||
     Object.keys(props.selected).length === 0
   ) {
-    console.log("nothing to plot");
+    // console.log("nothing to plot");
     return <br />;
 
   } else {
 
-    console.log('x_axis_label',props.x_axis_label)
+    // console.log('x_axis_label',props.x_axis_label)
 
     for (var key in props.plotted_data) {
 
@@ -373,7 +373,7 @@ class App extends Component {
   }
 
   handle_clearplot_button_press(event) {
-    console.log("clearing plotted data");
+    // console.log("clearing plotted data");
     this.setState({
       plotted_data: {}
     });
@@ -383,7 +383,7 @@ class App extends Component {
   }
 
   make_clear_button() {
-    console.log("this.state.selected", Object.keys(this.state.selected).length);
+    // console.log("this.state.selected", Object.keys(this.state.selected).length);
     if (Object.keys(this.state.selected).length === 0 || Object.keys(this.state.plotted_data).length === 0) {
       return "";
     } else {
@@ -392,23 +392,23 @@ class App extends Component {
   }
 
   handle_xaxis_scale_change(event) {
-    console.log("event.target.value", event.target.value);
+    // console.log("event.target.value", event.target.value);
     this.setState({
       x_axis_scale: event.target.value
     });
-    console.log("x_axis_scale", this.state.x_axis_scale);
+    // console.log("x_axis_scale", this.state.x_axis_scale);
   }
 
   handle_yaxis_scale_change(event) {
-    console.log("event.target.value", event.target.value);
+    // console.log("event.target.value", event.target.value);
     this.setState({
       y_axis_scale: event.target.value
     });
-    console.log("y_axis_scale", this.state.y_axis_scale);
+    // console.log("y_axis_scale", this.state.y_axis_scale);
   }
 
   handle_xaxis_units_change(value) {
-    console.log("value", value);
+    // console.log("value", value);
     this.setState({
       x_axis_mutliplier: value
     });
@@ -416,7 +416,7 @@ class App extends Component {
   }
 
   handle_yaxis_units_change(value) {
-    console.log("value", value);
+    // console.log("value", value);
     this.setState({
       y_axis_mutliplier: value
     });
@@ -425,22 +425,22 @@ class App extends Component {
 
   handle_meta_data_dropdown_change_function(optionSelected) {
     this.setState({ loading: true });
-    console.log("new metadata field selected", optionSelected.value);
+    // console.log("new metadata field selected", optionSelected.value);
 
     let queryCopy = JSON.parse(JSON.stringify(this.state.query));
-    console.log(queryCopy);
+    // console.log(queryCopy);
 
     if (optionSelected.value["value"] === "") {
       delete queryCopy[optionSelected.value["field"]];
-      console.log("deleting field from query", optionSelected.value["field"]);
+      // console.log("deleting field from query", optionSelected.value["field"]);
     } else {
       queryCopy[optionSelected.value["field"]] = optionSelected.value["value"];
     }
 
     this.setState({ query: queryCopy }, () => {
-      console.log("state =", this.state);
-      console.log("JSON.stringify(this.state.query)=", JSON.stringify(this.state.query));
-      console.log(REST_API_EXAMPLE_URL + "/get_matching_entrys?query=" + JSON.stringify(this.state.query));
+      // console.log("state =", this.state);
+      // console.log("JSON.stringify(this.state.query)=", JSON.stringify(this.state.query));
+      // console.log(REST_API_EXAMPLE_URL + "/get_matching_entrys?query=" + JSON.stringify(this.state.query));
 
       var meta_data_fields_string = "";
 
@@ -451,15 +451,15 @@ class App extends Component {
       meta_data_fields_string = meta_data_fields_string.replace(",", "{");
       meta_data_fields_string = meta_data_fields_string + "}";
 
-      console.log("meta_data_fields_string", meta_data_fields_string);
+      // console.log("meta_data_fields_string", meta_data_fields_string);
 
-      console.log(
-        REST_API_EXAMPLE_URL +
-          "/get_matching_entrys_limited_fields?query=" +
-          JSON.stringify(this.state.query) +
-          "&fields=" +
-          meta_data_fields_string
-      );
+      // console.log(
+      //   REST_API_EXAMPLE_URL +
+      //     "/get_matching_entrys_limited_fields?query=" +
+      //     JSON.stringify(this.state.query) +
+      //     "&fields=" +
+      //     meta_data_fields_string
+      // );
       //fetch(REST_API_EXAMPLE_URL + "/get_matching_entrys?query=" + JSON.stringify(this.state.query))
 
       fetch(
@@ -477,7 +477,7 @@ class App extends Component {
         .then(data => {
           this.setState({ query_result: data });
           this.setState({ loading: false });
-          console.log("state =", this.state);
+          //console.log("state =", this.state);
         })
         .catch(err => {
           console.log(
@@ -489,7 +489,7 @@ class App extends Component {
         });
     });
 
-    console.log("current query", this.state.query);
+    // console.log("current query", this.state.query);
   }
 
 
@@ -523,22 +523,22 @@ class App extends Component {
   }
 
   toggleRow(filename) {
-    console.log('row id selected ',filename)
+    // console.log('row id selected ',filename)
     this.setState({ loading: true });
     this.setState({ loading_graph: false });
     const newSelected = Object.assign({}, this.state.selected);
     newSelected[filename] = !this.state.selected[filename];
-    console.log("check box clicked", filename, "state=", newSelected[filename]);
+    // console.log("check box clicked", filename, "state=", newSelected[filename]);
     this.setState({ selected: newSelected });
 
     const select_dic = this.state.selected;
-    console.log("values");
-    console.log(Object.values(select_dic));
+    // console.log("values");
+    // console.log(Object.values(select_dic));
 
     let plotted_dataCopy = JSON.parse(JSON.stringify(this.state.plotted_data));
     if (newSelected[filename] === true) {
       // this.setState({requires_checkbox_selection: false,});
-      console.log(REST_API_EXAMPLE_URL + '/get_matching_entry?query={"id":"' + filename + '"}');
+      // console.log(REST_API_EXAMPLE_URL + '/get_matching_entry?query={"id":"' + filename + '"}');
       fetch(REST_API_EXAMPLE_URL + '/get_matching_entry?query={"id":"' + filename + '"}')
         .then(result => {
           if (result.ok) {
@@ -550,7 +550,7 @@ class App extends Component {
           this.setState({ plotted_data: plotted_dataCopy });
           this.setState({ loading_graph: false });
           this.setState({ loading: false });
-          console.log("state =", this.state);
+          // console.log("state =", this.state);
         })
         .catch(err => {
           console.log(
@@ -566,9 +566,9 @@ class App extends Component {
       this.setState({ loading: false });
     }
 
-    console.log("plotted_dataCopy", plotted_dataCopy);
+    // console.log("plotted_dataCopy", plotted_dataCopy);
     this.setState({ plotted_data: plotted_dataCopy }, () => {
-      console.log(this.state.plotted_data);
+      // console.log(this.state.plotted_data);
     });
   }
 
@@ -584,7 +584,7 @@ class App extends Component {
 
         const meta_data_fields_local = [];
         data.map((x, i) => {
-          console.log("meta_data_field", x["field"][0]);
+          // console.log("meta_data_field", x["field"][0]);
           meta_data_fields_local.push(x["field"][0]);
         });
         this.setState({ meta_data_fields: meta_data_fields_local });
@@ -615,17 +615,17 @@ class App extends Component {
   }
 
   render() {
-    console.log("filter data", this.state.filter_data);
-    console.log("axis_data", this.state.axis_data);
+    //console.log("filter data", this.state.filter_data);
+    //console.log("axis_data", this.state.axis_data);
 
     const filter_data = this.state.filter_data;
     const axis_data = this.state.axis_data;
 
     const results_of_db_query = this.state.query_result;
 
-    console.log("this.state.query_result", this.state.query_result);
+    //console.log("this.state.query_result", this.state.query_result);
 
-    console.log("selected", this.state.selected);
+    //console.log("selected", this.state.selected);
 
     const selected = this.state.selected;
 
@@ -640,18 +640,18 @@ class App extends Component {
     } else {
       check_box_class = "checkbox";
     }
-    console.log("check_box_class", check_box_class);
-    console.log(
-      "check_box_class",
-      Object.keys(selected).every(function(k) {
-        return selected[k] === false;
-      })
-    );
-    console.log("check_box_class", this.state.selected);
+    //console.log("check_box_class", check_box_class);
+    // console.log(
+    //   "check_box_class",
+    //   Object.keys(selected).every(function(k) {
+    //     return selected[k] === false;
+    //   })
+    // );
+    //console.log("check_box_class", this.state.selected);
 
     const columns = this.ReturnColumns(check_box_class);
     
-    console.log('columns',columns)
+    //console.log('columns',columns)
 
 
     return (
