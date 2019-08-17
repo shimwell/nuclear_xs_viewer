@@ -558,33 +558,32 @@ class App extends Component {
         console.log("Cannot connect to server find_meta_data_fields_and_distinct_entries");
       });
 
-    // fetch(REST_API_EXAMPLE_URL + "/find_axis_data_fields")
-    //   .then(result => {
-    //     if (result.ok) {
-    //       return result.json();
-    //     }
-    //   })
-    //   .then(data => {
-    //     const axis_data = [];
-    //     for (var i = 0; i < data.length; i++) {
-    //       axis_data.push({
-    //         value: data[i],
-    //         label: data[i]
-    //       });
-    //     }
-    //     this.setState({ axis_data: axis_data });
-    //   })
-    //   .catch(err => {
-    //     console.log("Cannot connect to server find_axis_data_fields");
-    //   });
+    fetch(REST_API_EXAMPLE_URL + "/find_axis_data_fields")
+      .then(result => {
+        if (result.ok) {
+          return result.json();
+        }
+      })
+      .then(data => {
+        const axis_data = [];
+        for (var i = 0; i < data.length; i++) {
+          axis_data.push({
+            value: data[i],
+            label: data[i]
+          });
+        }
+        this.setState({ axis_data: axis_data });
+      })
+      .catch(err => {
+        console.log("Cannot connect to server find_axis_data_fields");
+      });
   }
 
   render() {
 
 
     const filter_data = this.state.filter_data;
-    // const axis_data = this.state.axis_data;
-    // {"cross section":"cross section", "energy":"energy"}
+    const axis_data = this.state.axis_data;
 
 
     const selected = this.state.selected;
