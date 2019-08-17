@@ -41,7 +41,7 @@ const SliderWithTooltip = createSliderWithTooltip(Slider);
 // const REST_API_EXAMPLE_URL = "http://127.0.0.1:8080"
 const REST_API_EXAMPLE_URL = "http://34.76.161.28:8080"
 
-document.title = 'ShimPlotWell'
+document.title = 'XSplot'
 
 function QueryResulltsTable(props) {
   if (props.query_Results.length === 0) {
@@ -627,7 +627,8 @@ class App extends Component {
         <Container>
           <Row>
             <Col>
-              <h1 className="heading">Cross section plotter - ShimPlotWell</h1>
+              <h1 className="heading">XSplot the nuclear cross section plotter</h1>
+              <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
             </Col>
           </Row>
           <Row>
