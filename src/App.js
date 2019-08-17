@@ -451,23 +451,10 @@ class App extends Component {
       meta_data_fields_string = meta_data_fields_string.replace(",", "{");
       meta_data_fields_string = meta_data_fields_string + "}";
 
-      // console.log("meta_data_fields_string", meta_data_fields_string);
-
-      // console.log(
-      //   REST_API_EXAMPLE_URL +
-      //     "/get_matching_entrys_limited_fields?query=" +
-      //     JSON.stringify(this.state.query) +
-      //     "&fields=" +
-      //     meta_data_fields_string
-      // );
-      //fetch(REST_API_EXAMPLE_URL + "/get_matching_entrys?query=" + JSON.stringify(this.state.query))
-
       fetch(
         REST_API_EXAMPLE_URL +
           "/get_matching_entrys_limited_fields?query=" +
-          JSON.stringify(this.state.query) +
-          "&fields=" +
-          meta_data_fields_string
+          JSON.stringify(this.state.query)
       )
         .then(result => {
           if (result.ok) {
