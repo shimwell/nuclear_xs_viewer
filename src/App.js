@@ -430,9 +430,6 @@ class App extends Component {
     }
 
     this.setState({ query: queryCopy }, () => {
-      // console.log("state =", this.state);
-      // console.log("JSON.stringify(this.state.query)=", JSON.stringify(this.state.query));
-      // console.log(REST_API_EXAMPLE_URL + "/get_matching_entrys?query=" + JSON.stringify(this.state.query));
 
       fetch(
         REST_API_EXAMPLE_URL +
@@ -583,17 +580,11 @@ class App extends Component {
   }
 
   render() {
-    //console.log("filter data", this.state.filter_data);
-    //console.log("axis_data", this.state.axis_data);
+
 
     const filter_data = this.state.filter_data;
     const axis_data = this.state.axis_data;
 
-    //const results_of_db_query = this.state.query_result;
-
-    //console.log("this.state.query_result", this.state.query_result);
-
-    //console.log("selected", this.state.selected);
 
     const selected = this.state.selected;
 
@@ -608,19 +599,9 @@ class App extends Component {
     } else {
       check_box_class = "checkbox";
     }
-    //console.log("check_box_class", check_box_class);
-    // console.log(
-    //   "check_box_class",
-    //   Object.keys(selected).every(function(k) {
-    //     return selected[k] === false;
-    //   })
-    // );
-    //console.log("check_box_class", this.state.selected);
 
     const columns = this.ReturnColumns(check_box_class);
     
-    //console.log('columns',columns)
-
 
     return (
       <div className="App">
@@ -628,7 +609,7 @@ class App extends Component {
           <Row>
             <Col>
               <h1 className="heading">XSplot the nuclear cross section plotter</h1>
-              <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+              <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
             </Col>
           </Row>
           <Row>
