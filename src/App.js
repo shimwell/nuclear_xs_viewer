@@ -39,7 +39,8 @@ const SliderWithTooltip = createSliderWithTooltip(Slider);
 // const REST_API_EXAMPLE_URL = "http://35.225.80.160:80";
 // const REST_API_EXAMPLE_URL = process.env.REACT_APP_HOST_IP.slice(0, -1) +":8080"
 // const REST_API_EXAMPLE_URL = process.env.REACT_APP_HOST_IP
-const REST_API_EXAMPLE_URL = "http://127.0.0.1:8080"
+// const REST_API_EXAMPLE_URL = "http://127.0.0.1:8080"
+const REST_API_EXAMPLE_URL = "http://http://34.76.161.28/:8080"
 
 document.title = 'ShimPlotWell'
 
@@ -57,7 +58,7 @@ function QueryResulltsTable(props) {
 
   
   //console.log("table_key", table_key);
-  //console.log("props.data query tabe", props.data);
+  console.log("props.data query tabe", props.data);
   return (
     <ReactTable
       key={table_key}
@@ -216,15 +217,7 @@ function ScaleSlider(props){
 
 
 function PlotlyGraph(props) {
-  // console.log("props.plotted_data", props.plotted_data);
-  // console.log("props.selected", Object.keys(props.selected).length);
-  // console.log("props.plotted_data.length", Object.keys(props.plotted_data).length);
-  // console.log("props.x_axis_label", props.x_axis_label);
-  // console.log("props.y_axis_label", props.y_axis_label);
-  // console.log("props.x_axis_scale", props.x_axis_scale);
-  // console.log("props.y_axis_scale", props.y_axis_scale);
-  // console.log("props.x_axis_mutliplier", props.x_axis_mutliplier);
-  // console.log("props.y_axis_mutliplier", props.y_axis_mutliplier);
+
   const list_of_data_dictionaries = [];
   if (
     Object.keys(props.plotted_data).length === 0 ||
@@ -442,15 +435,6 @@ class App extends Component {
       // console.log("JSON.stringify(this.state.query)=", JSON.stringify(this.state.query));
       // console.log(REST_API_EXAMPLE_URL + "/get_matching_entrys?query=" + JSON.stringify(this.state.query));
 
-      var meta_data_fields_string = "";
-
-      for (var i = 0; i < this.state.axis_data.length; i++) {
-        meta_data_fields_string = meta_data_fields_string + ',"' + this.state.axis_data[i]["value"] + '":0';
-      }
-
-      meta_data_fields_string = meta_data_fields_string.replace(",", "{");
-      meta_data_fields_string = meta_data_fields_string + "}";
-
       fetch(
         REST_API_EXAMPLE_URL +
           "/get_matching_entrys_limited_fields?query=" +
@@ -470,13 +454,13 @@ class App extends Component {
           console.log(
             "Cannot connect to server " +
               REST_API_EXAMPLE_URL +
-              "get_matching_entrys?query=" +
+              "get_matching_entrys_limited_fields?query=" +
               JSON.stringify(this.state.query)
           );
         });
     });
 
-    // console.log("current query", this.state.query);
+    console.log("current query", this.state.query);
   }
 
 
@@ -543,9 +527,7 @@ class App extends Component {
           console.log(
             "Cannot connect to server " +
               REST_API_EXAMPLE_URL +
-              "/get_matching_entry?query={'filename':" +
-              filename +
-              "}"
+              '/get_matching_entry?query={"id":"' + filename + '"}'
           );
         });
     } else {
@@ -608,7 +590,7 @@ class App extends Component {
     const filter_data = this.state.filter_data;
     const axis_data = this.state.axis_data;
 
-    const results_of_db_query = this.state.query_result;
+    //const results_of_db_query = this.state.query_result;
 
     //console.log("this.state.query_result", this.state.query_result);
 
@@ -759,7 +741,7 @@ class App extends Component {
                 <br />
                 <QueryResulltsTable
                   query_Results={this.state.query_result}
-                  data={results_of_db_query}
+                  data={this.state.query_result}
                   columns={columns}
                   loading={this.state.loading}
                 />
