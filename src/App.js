@@ -22,10 +22,10 @@ import { Container, Row, Col, Button } from "reactstrap";
 
 import Slider, { createSliderWithTooltip } from 'rc-slider';
 import 'rc-slider/assets/index.css';
+const REST_API_EXAMPLE_URL = "http://35.241.192.251:8080"
 // const REST_API_EXAMPLE_URL = process.env.REACT_APP_HOST_IP.slice(0, -1) +":8080"
 // const REST_API_EXAMPLE_URL = "http://" + process.env.REACT_APP_HOST_IP +":8080"
 // const REST_API_EXAMPLE_URL = "http://127.0.0.1:8080"
-const REST_API_EXAMPLE_URL = "http://35.241.192.251:8080"
 
 
 
@@ -541,23 +541,6 @@ class App extends Component {
     });
   }
 
-  // componentDidMount() {
-  //   fetch(REST_API_EXAMPLE_URL + "/find_meta_data_fields_and_distinct_entries")
-  //     .then(result => {
-  //       if (result.ok) {
-  //         return result.json();
-  //       }
-  //     })
-  //     .then(data => {
-  //       this.setState({ filter_data: data });
-  //       console.log(data)
-  //     })
-  //     .catch(err => {
-  //       console.log("Cannot connect to server find_meta_data_fields_and_distinct_entries");
-  //     });
-
-  // }
-
   render() {
 
 
@@ -592,7 +575,7 @@ class App extends Component {
           <Row>
             <Col md="5" lg="5">
               <FilterDropdowns
-                filter_data={filter_data}
+                filter_data={this.state.filter_data}
                 event_handler={this.handle_meta_data_dropdown_change_function}
               />
 
