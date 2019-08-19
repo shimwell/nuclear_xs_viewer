@@ -32,11 +32,14 @@ RUN npm install react-plotly.js --save
 RUN npm install plotly.js --save
 RUN npm install rc-slider --save 
 RUN npm install dotenv --save
-
-RUN echo updating app code
-COPY . /app
+RUN apt-get update
+RUN apt-get install dnsutils --yes
 
 RUN npm update
+
+RUN echo updating app code3
+COPY . /app
+
 # RUN npm ls
 # ENV HOST_IP = 34.68.223.199
 
@@ -45,8 +48,6 @@ RUN npm update
 
 # RUN npm run build
 # RUN REACT_APP_HOST_IP=http://35.225.255.223 npm run build
-RUN apt-get update
-RUN apt-get install dnsutils --yes
 RUN dig +short myip.opendns.com @resolver1.opendns.com
 RUN myip="$(dig +short myip.opendns.com @resolver1.opendns.com)":8080
 RUN echo "My WAN/Public IP address: ${myip}"
