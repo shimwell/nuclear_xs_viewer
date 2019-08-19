@@ -333,9 +333,10 @@ class App extends Component {
     super(props);
 
     this.state = {
-      filter_data: [],
-      axis_data: [{"cross section":"cross section","energy":"energy"}],
-      //query:{'filename':'sdf.csv','uploader':}
+      //find_meta_data_fields_and_distinct_entries
+      filter_data: [{"distinct_values":["JEFF-3.3"],"field":["Library"]},{"distinct_values":["102 gamma","103 p","104 d","105 t","106 3He","107 a","11 2nd","111 2p","112 pa","16 2n","17 3n","2 elastic","203 Xp","204 Xd","205 Xt","206 3He","207 Xa","22 na","24 2na","25 3na","28 np","301 heat","32 nd","33 nt","34 nHe-3","37 4n","41 2np","42 3np","44 n2p","444 damage","5 misc","51 n1","52 n2","53 n3","54 n4","55 n5","56 n6","57 n7","58 n8","59 n9","60 n10","61 n11","62 n12","63 n13","64 n14","65 n15","66 n16","67 n17","68 n18","69 n19","70 n20","71 n21","72 n22","73 n23","74 n24","75 n25","76 n26","77 n27","78 n28","79 n29","80 n30","875 2n0","876 2n1","877 2n2","878 2n3","879 2n4","880 2n5","881 2n6","882 2n7","883 2n8","884 2n9","885 2n10","886 2n11","887 2n12","888 2n13","889 2n14","890 2n15","91 nc"],"field":["MT number / reaction products"]},{"distinct_values":[9,106],"field":["Mass number"]},{"distinct_values":[5,58,62],"field":["Neutron number"]},{"distinct_values":["4 Be Beryllium","44 Ru Ruthenium","48 Cd Cadmium"],"field":["Proton number / element"]}],
+      //find_axis_data_fields
+      axis_data: [{"cross section":"cross section","energy":"energy"}], 
       query: {},
       query_result: [],
       plotted_data: {},
@@ -540,33 +541,27 @@ class App extends Component {
     });
   }
 
-  componentDidMount() {
-    fetch(REST_API_EXAMPLE_URL + "/find_meta_data_fields_and_distinct_entries")
-      .then(result => {
-        if (result.ok) {
-          return result.json();
-        }
-      })
-      .then(data => {
-        this.setState({ filter_data: data });
+  // componentDidMount() {
+  //   fetch(REST_API_EXAMPLE_URL + "/find_meta_data_fields_and_distinct_entries")
+  //     .then(result => {
+  //       if (result.ok) {
+  //         return result.json();
+  //       }
+  //     })
+  //     .then(data => {
+  //       this.setState({ filter_data: data });
+  //       console.log(data)
+  //     })
+  //     .catch(err => {
+  //       console.log("Cannot connect to server find_meta_data_fields_and_distinct_entries");
+  //     });
 
-        const meta_data_fields_local = [];
-        data.map((x, i) => {
-          // console.log("meta_data_field", x["field"][0]);
-          meta_data_fields_local.push(x["field"][0]);
-        });
-        this.setState({ meta_data_fields: meta_data_fields_local });
-      })
-      .catch(err => {
-        console.log("Cannot connect to server find_meta_data_fields_and_distinct_entries");
-      });
-
-  }
+  // }
 
   render() {
 
 
-    const filter_data = this.state.filter_data;
+    // const filter_data = this.state.filter_data;
 
 
     const selected = this.state.selected;
