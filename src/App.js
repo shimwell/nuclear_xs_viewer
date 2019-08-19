@@ -22,6 +22,13 @@ import { Container, Row, Col, Button } from "reactstrap";
 
 import Slider, { createSliderWithTooltip } from 'rc-slider';
 import 'rc-slider/assets/index.css';
+// const REST_API_EXAMPLE_URL = process.env.REACT_APP_HOST_IP.slice(0, -1) +":8080"
+// const REST_API_EXAMPLE_URL = "http://" + process.env.REACT_APP_HOST_IP +":8080"
+// const REST_API_EXAMPLE_URL = "http://127.0.0.1:8080"
+const REST_API_EXAMPLE_URL = "http://35.241.192.251:8080"
+
+
+
 const style2 = {"white-space":"nowrap"}
 const style = { width: 200, margin: 20 };
 
@@ -36,10 +43,6 @@ const marks = {
 
 const SliderWithTooltip = createSliderWithTooltip(Slider);
 
-// const REST_API_EXAMPLE_URL = process.env.REACT_APP_HOST_IP.slice(0, -1) +":8080"
-// const REST_API_EXAMPLE_URL = "http://" + process.env.REACT_APP_HOST_IP +":8080"
-// const REST_API_EXAMPLE_URL = "http://127.0.0.1:8080"
-const REST_API_EXAMPLE_URL = "http://34.76.161.28:8080"
 
 document.title = 'XSplot'
 
@@ -331,13 +334,13 @@ class App extends Component {
 
     this.state = {
       filter_data: [],
-      axis_data: [],
+      axis_data: [{"cross section":"cross section","energy":"energy"}],
       //query:{'filename':'sdf.csv','uploader':}
       query: {},
       query_result: [],
       plotted_data: {},
       x_axis_scale: "lin",
-      y_axis_scale: "lin",
+      y_axis_scale: "log",
       columns: [],
       data: [],
       loading: false,
@@ -558,32 +561,12 @@ class App extends Component {
         console.log("Cannot connect to server find_meta_data_fields_and_distinct_entries");
       });
 
-    fetch(REST_API_EXAMPLE_URL + "/find_axis_data_fields")
-      .then(result => {
-        if (result.ok) {
-          return result.json();
-        }
-      })
-      .then(data => {
-        const axis_data = [];
-        for (var i = 0; i < data.length; i++) {
-          axis_data.push({
-            value: data[i],
-            label: data[i]
-          });
-        }
-        this.setState({ axis_data: axis_data });
-      })
-      .catch(err => {
-        console.log("Cannot connect to server find_axis_data_fields");
-      });
   }
 
   render() {
 
 
     const filter_data = this.state.filter_data;
-    const axis_data = this.state.axis_data;
 
 
     const selected = this.state.selected;
@@ -609,7 +592,6 @@ class App extends Component {
           <Row>
             <Col>
               <h1 className="heading">XSplot the nuclear cross section plotter</h1>
-              <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
             </Col>
           </Row>
           <Row>
