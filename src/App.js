@@ -57,7 +57,7 @@ function QueryResulltsTable(props) {
 
   
   //console.log("table_key", table_key);
-  console.log("props.data query tabe", props.data);
+  // console.log("props.data query tabe", props.data);
   return (
     <ReactTable
       key={table_key}
@@ -336,8 +336,8 @@ class App extends Component {
       query: {},
       query_result: [],
       plotted_data: {},
-      x_axis_scale: "lin",
-      y_axis_scale: "lin",
+      x_axis_scale: "log",
+      y_axis_scale: "log",
       columns: [],
       data: [],
       loading: false,
