@@ -44,11 +44,11 @@ const marks = {
 const SliderWithTooltip = createSliderWithTooltip(Slider);
 
 
-document.title = 'XSplot'
+document.title = 'XSPlot'
 
 function QueryResulltsTable(props) {
   if (props.query_Results.length === 0) {
-    return <br />;
+    return <p>No matching results</p>;
   }
 
   const table_key = [];
