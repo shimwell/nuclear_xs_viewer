@@ -37,7 +37,7 @@ RUN apt-get install dnsutils --yes
 
 RUN npm update
 
-RUN echo updating app code4.14
+RUN echo updating app code4.13
 COPY . /app
 
 # RUN npm ls
