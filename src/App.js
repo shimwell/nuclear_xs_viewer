@@ -22,7 +22,7 @@ import { Container, Row, Col, Button } from "reactstrap";
 
 import Slider, { createSliderWithTooltip } from 'rc-slider';
 import 'rc-slider/assets/index.css';
-const REST_API_EXAMPLE_URL = "http://35.233.34.161:8080"
+const REST_API_EXAMPLE_URL = "http://34.77.71.230:8080"
 // const REST_API_EXAMPLE_URL = process.env.REACT_APP_HOST_IP.slice(0, -1) +":8080"
 // const REST_API_EXAMPLE_URL = "http://" + process.env.REACT_APP_HOST_IP +":8080"
 // const REST_API_EXAMPLE_URL = "http://127.0.0.1:8080"
