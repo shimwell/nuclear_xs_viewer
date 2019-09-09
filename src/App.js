@@ -341,7 +341,7 @@ class App extends Component {
       query: {},
       query_result: [],
       plotted_data: {},
-      x_axis_scale: "lin",
+      x_axis_scale: "log",
       y_axis_scale: "log",
       columns: [],
       data: [],
