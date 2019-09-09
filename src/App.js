@@ -246,10 +246,11 @@ function PlotlyGraph(props) {
       
 
       var [protons, element_symbol, element_name] = props.plotted_data[key]['Proton number / element'].split(' ')
+      var library = props.plotted_data[key]['Library']
       var [mt_number, products] = props.plotted_data[key]['MT number / reaction products'].split(' ')
       var mass_number = props.plotted_data[key]['Mass number']
       var incident_particle = 'n'
-      var legend_name = element_symbol+mass_number + ' ('+ incident_particle+','+products+')' 
+      var legend_name = element_symbol+mass_number + ' ('+ incident_particle+','+products+') ' + library
       // var legend_name = props.plotted_data[key]['Atomic symbol']+props.plotted_data[key]['Mass number'] + ' ('+props.plotted_data[key]['Incident particle']+','+props.plotted_data[key]['Reaction products']+')',
 
         
