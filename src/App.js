@@ -141,9 +141,9 @@ function FilterDropdowns(props) {
             //name={'dropdown_'+field_values.replace(' ','_')}
             key={i}
             options={meta_data_dropdown_dict}
-            //placeholder={field_values}
+            placeholder='Select or type ...'
             name={field_values}
-            //isClearable={true}
+            isClearable={true}
             onChange={props.event_handler}
             className="meta_data_dropdown" 
           />
