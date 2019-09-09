@@ -143,7 +143,7 @@ function FilterDropdowns(props) {
             options={meta_data_dropdown_dict}
             placeholder='Select or type ...'
             name={field_values}
-            isClearable={true}
+            isClearable
             onChange={props.event_handler}
             className="meta_data_dropdown" 
           />
