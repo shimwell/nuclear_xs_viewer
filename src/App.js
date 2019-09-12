@@ -571,7 +571,7 @@ class App extends Component {
           <Row>
             <Col>
               <h1 className="heading">XSPlot the nuclear cross section plotter</h1>
-              <p>Contribute an improvement, raise an issuse or request a feature <a href="https://github.com/Shimwell/nuclear_xs_compose">here</a>. Website <a href="https://github.com/Shimwell/nuclear_xs_compose/blob/master/LICENSE"> License </a> </p>
+              <p>Contribute an improvement, raise an issue or request a feature <a href="https://github.com/Shimwell/nuclear_xs_compose">here</a>. Website <a href="https://github.com/Shimwell/nuclear_xs_compose/blob/master/LICENSE"> License </a> </p>
             </Col>
           </Row>
           <Row>
