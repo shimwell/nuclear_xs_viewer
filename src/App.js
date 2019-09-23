@@ -314,7 +314,7 @@ function PlotlyGraph(props) {
           pad: 1
         },
         legend: {
-          x: 0,
+          x: 0.8,
           y: 1
         }
       }}
