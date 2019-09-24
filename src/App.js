@@ -385,7 +385,7 @@ class App extends Component {
     if (Object.keys(this.state.selected).length === 0 || Object.keys(this.state.plotted_data).length === 0) {
       return "";
     } else {
-      return <Button onClick={this.handle_clearplot_button_press}>Clear selection</Button>;
+      return <Button onClick={this.handle_clearplot_button_press}>Clear plot</Button>;
     }
   }
 
