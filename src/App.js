@@ -584,6 +584,7 @@ class App extends Component {
               />
 
               <br />
+              <br />
 
 
               <DownloadButton plotted_data={this.state.plotted_data}
@@ -592,12 +593,14 @@ class App extends Component {
                               />
               
               <br />
+              <br />
 
               <DownloadButton plotted_data={this.state.plotted_data}
                               title="Download data (csv)"
                               endpoint="/download_csv"
                               />
               
+              <br />
               <br />
 
               {this.make_clear_button()}
