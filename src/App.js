@@ -581,7 +581,7 @@ class App extends Component {
           <Row>
             <Col>
               <h1 className="heading">XSPlot the nuclear cross section plotter</h1>
-              <p>Search 101,294 cross sections</p>
+              <p>Search 101,294 cross sections processed with <a href="https://openmc.readthedocs.io">OpenMC</a>.</p>
               <p>Contribute, raise an issue or request a feature <a href="https://github.com/Shimwell/nuclear_xs_compose">here</a>. Site <a href="https://github.com/Shimwell/nuclear_xs_compose/blob/master/LICENSE"> license </a> </p>
             </Col>
           </Row>
