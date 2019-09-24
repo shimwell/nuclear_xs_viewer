@@ -585,18 +585,22 @@ class App extends Component {
 
               <br />
 
-              {this.make_clear_button()}
 
               <DownloadButton plotted_data={this.state.plotted_data}
                               title="Download data (json)"
                               endpoint="/download_json"
                               />
+              
+              <br />
 
               <DownloadButton plotted_data={this.state.plotted_data}
                               title="Download data (csv)"
                               endpoint="/download_csv"
                               />
+              
+              <br />
 
+              {this.make_clear_button()}
 
             </Col>
             <Col md="7" lg="7">
