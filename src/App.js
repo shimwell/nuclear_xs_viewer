@@ -313,8 +313,9 @@ function PlotlyGraph(props) {
           t: 1,
           pad: 1
         },
+        showlegend: true,
         legend: {
-          x: 0.8,
+          x: 0.7,
           y: 1
         }
       }}
