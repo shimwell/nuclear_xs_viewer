@@ -22,6 +22,9 @@ import { Container, Row, Col, Button } from "reactstrap";
 
 import Slider, { createSliderWithTooltip } from 'rc-slider';
 import 'rc-slider/assets/index.css';
+
+import ReactGA from 'react-ga';
+
 const REST_API_EXAMPLE_URL = "http://34.77.71.230:8080"
 // const REST_API_EXAMPLE_URL = process.env.REACT_APP_HOST_IP.slice(0, -1) +":8080"
 // const REST_API_EXAMPLE_URL = "http://" + process.env.REACT_APP_HOST_IP +":8080"
@@ -45,6 +48,11 @@ const SliderWithTooltip = createSliderWithTooltip(Slider);
 
 
 document.title = 'XSPlot'
+
+function initializeReactGA() {
+  ReactGA.initialize('UA-148582843-1');
+  ReactGA.pageview('/homepage');
+}
 
 function QueryResulltsTable(props) {
   if (props.query_Results.length === 0) {

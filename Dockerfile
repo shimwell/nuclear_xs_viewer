@@ -32,6 +32,7 @@ RUN npm install react-plotly.js --save
 RUN npm install plotly.js --save
 RUN npm install rc-slider --save 
 RUN npm install dotenv --save
+RUN npm install react-ga --save
 RUN apt-get update
 RUN apt-get install dnsutils --yes
 
