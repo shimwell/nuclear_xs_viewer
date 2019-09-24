@@ -53,6 +53,7 @@ function initializeReactGA() {
   ReactGA.initialize('UA-148582843-1');
   ReactGA.pageview('/homepage');
 }
+initializeReactGA()
 
 function QueryResulltsTable(props) {
   if (props.query_Results.length === 0) {
@@ -324,7 +325,7 @@ function PlotlyGraph(props) {
         showlegend: true,
         legend: {
           x: 0.7,
-          y: 1
+          y: 0.9
         }
       }}
     />
