@@ -585,6 +585,18 @@ class App extends Component {
 
               <br />
 
+              {this.make_clear_button()}
+
+              <DownloadButton plotted_data={this.state.plotted_data}
+                              title="Download data (json)"
+                              endpoint="/download_json"
+                              />
+
+              <DownloadButton plotted_data={this.state.plotted_data}
+                              title="Download data (csv)"
+                              endpoint="/download_csv"
+                              />
+
 
             </Col>
             <Col md="7" lg="7">
@@ -599,18 +611,6 @@ class App extends Component {
                 y_axis_mutliplier={this.state.y_axis_mutliplier}
               />
 
-              {this.make_clear_button()}
-
-              <DownloadButton plotted_data={this.state.plotted_data}
-                              title="Download data (json)"
-                              endpoint="/download_json"
-                              />
-
-              <DownloadButton plotted_data={this.state.plotted_data}
-                              title="Download data (csv)"
-                              endpoint="/download_csv"
-                              />
-              <br />
               <br />
 
               <AxisScaleRadioButton
