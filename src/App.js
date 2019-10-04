@@ -74,7 +74,7 @@ function QueryResulltsTable(props) {
     <ReactTable
       key={table_key}
       data={props.data}
-      columns={[{ Header: "Query results", columns: props.columns }]}
+      columns={[{ Header: "Query results (limited to 30)", columns: props.columns }]}
       showPagination={false}
       defaultPageSize={Math.max(3, props.query_Results.length)}
       loading={props.loading}
