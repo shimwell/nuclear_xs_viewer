@@ -269,7 +269,7 @@ function PlotlyGraph(props) {
             y_axis_title = y_axis_title+' heating (eV/reaction) '
           }
       }
-      else if (mt_nummber == '444'){
+      else if (mt_number == '444'){
               if (y_axis_title.indexOf('heating') == -1){
                 y_axis_title = y_axis_title+' damage (MeV-barns) '
               }
