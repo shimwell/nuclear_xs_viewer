@@ -233,15 +233,15 @@ function PlotlyGraph(props) {
   if (
     Object.keys(props.plotted_data).length === 0 ||
     Object.keys(props.selected).length === 0
-  ) {
-    // console.log("nothing to plot");
-    return <br />;
+    ) {
+      // console.log("nothing to plot");
+      return <br />;
+      
+    } else {
+      
+      // console.log('x_axis_label',props.x_axis_label)
+      var y_axis_title = ''
 
-  } else {
-
-    // console.log('x_axis_label',props.x_axis_label)
-
-    const y_axis_title = ''
 
     for (var key in props.plotted_data) {
 
