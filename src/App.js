@@ -269,12 +269,12 @@ function PlotlyGraph(props) {
             y_axis_title = y_axis_title+'  heating (eV/reaction)  '
           }
       }
-      else if (mt_number == '444'){
-              if (y_axis_title.indexOf('heating') == -1){
-                y_axis_title = y_axis_title+'  damage (eV-barns)  '
-              }
+      if (mt_number == '444'){
+          if (y_axis_title.indexOf('heating') == -1){
+            y_axis_title = y_axis_title+'  damage (eV-barns)  '
+          }
       }
-      else{
+      if (mt_number != '444' && mt_number != '301'){
         if (y_axis_title.indexOf('cross section') == -1){
           y_axis_title = y_axis_title + '  cross section (barns)  '
         }
