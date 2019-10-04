@@ -182,9 +182,9 @@ function DownloadButton(props) {
     // list_of_ids.push(props.plotted_data[key]["_id"]["$oid"]);
     list_of_ids.push(props.plotted_data[key]["id"]);
   });
-  var string_of_ids = list_of_ids.join("','");
+  var string_of_ids = list_of_ids.join(",");
 
-  string_of_ids = "'" + string_of_ids + "'";
+  // string_of_ids = "'" + string_of_ids + "'";
 
   //console.log("string_of_ids", string_of_ids);
 
