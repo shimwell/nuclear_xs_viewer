@@ -241,6 +241,8 @@ function PlotlyGraph(props) {
 
     // console.log('x_axis_label',props.x_axis_label)
 
+    const y_axis_title = ''
+
     for (var key in props.plotted_data) {
 
         var multiplied_x_axis = props.plotted_data[key][props.x_axis_label].map(function(entry) {
@@ -261,7 +263,22 @@ function PlotlyGraph(props) {
       var incident_particle = 'n'
       var legend_name = element_symbol+mass_number + ' ('+ incident_particle+','+products+') ' + library
       // var legend_name = props.plotted_data[key]['Atomic symbol']+props.plotted_data[key]['Mass number'] + ' ('+props.plotted_data[key]['Incident particle']+','+props.plotted_data[key]['Reaction products']+')',
-
+      
+      if (mt_number == '301'){ 
+          if (y_axis_title.indexOf('heating') == -1){
+            y_axis_title = y_axis_title+' heating (eV/reaction) '
+          }
+      }
+      else if (mt_nummber == '444'){
+              if (y_axis_title.indexOf('heating') == -1){
+                y_axis_title = y_axis_title+' damage (MeV-barns) '
+              }
+      }
+      else{
+        if (y_axis_title.indexOf('cross section') == -1){
+          y_axis_title = y_axis_title + 'cross section (barns)'
+        }
+      }
         
       list_of_data_dictionaries.push({
         x: multiplied_x_axis,
@@ -301,6 +318,7 @@ function PlotlyGraph(props) {
         
 
   const x_axis_title = props.x_axis_label + ' ' + units
+  // const x_axis_title = props.y_axis_label + ' ' + units
 
   return (
     <Plot
@@ -314,7 +332,7 @@ function PlotlyGraph(props) {
           // showticksuffix : "none"
         },
         yaxis: {
-          title: props.y_axis_label + ' (barns)',
+          title: y_axis_title,
           type: props.y_axis_scale
         },
         margin: {
