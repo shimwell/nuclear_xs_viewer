@@ -270,7 +270,7 @@ function PlotlyGraph(props) {
           }
       }
       if (mt_number == '444'){
-          if (y_axis_title.indexOf('heating') == -1){
+          if (y_axis_title.indexOf('damage') == -1){
             y_axis_title = y_axis_title+'  damage (eV-barns)  '
           }
       }
