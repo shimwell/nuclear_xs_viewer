@@ -30,7 +30,14 @@ const REST_API_EXAMPLE_URL = "http://34.77.71.230:8080"
 // const REST_API_EXAMPLE_URL = "http://" + process.env.REACT_APP_HOST_IP +":8080"
 // const REST_API_EXAMPLE_URL = "http://127.0.0.1:8080"
 
+const TerserPlugin = require('terser-webpack-plugin');
 
+module.exports = {
+  mode: 'production',
+  optimization: {
+    minimizer: [new TerserPlugin({ /* additional options here */ })],
+  },
+};
 
 const style2 = {"white-space":"nowrap"}
 const style = { width: 200, margin: 20 };
