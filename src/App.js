@@ -30,14 +30,14 @@ const REST_API_EXAMPLE_URL = "http://34.77.71.230:8080"
 // const REST_API_EXAMPLE_URL = "http://" + process.env.REACT_APP_HOST_IP +":8080"
 // const REST_API_EXAMPLE_URL = "http://127.0.0.1:8080"
 
-const TerserPlugin = require('terser-webpack-plugin');
+// const TerserPlugin = require('terser-webpack-plugin');
 
-module.exports = {
-  mode: 'production',
-  optimization: {
-    minimizer: [new TerserPlugin({ /* additional options here */ })],
-  },
-};
+// module.exports = {
+//   mode: 'production',
+//   optimization: {
+//     minimizer: [new TerserPlugin({ /* additional options here */ })],
+//   },
+// };
 
 const style2 = {"white-space":"nowrap"}
 const style = { width: 200, margin: 20 };
@@ -271,18 +271,18 @@ function PlotlyGraph(props) {
       var legend_name = element_symbol+mass_number + ' ('+ incident_particle+','+products+') ' + library
       // var legend_name = props.plotted_data[key]['Atomic symbol']+props.plotted_data[key]['Mass number'] + ' ('+props.plotted_data[key]['Incident particle']+','+props.plotted_data[key]['Reaction products']+')',
       
-      if (mt_number == '301'){ 
-          if (y_axis_title.indexOf('heating') == -1){
+      if (mt_number === '301'){ 
+          if (y_axis_title.indexOf('heating') === -1){
             y_axis_title = y_axis_title+'  heating (eV/reaction)'
           }
       }
-      if (mt_number == '444'){
-          if (y_axis_title.indexOf('damage') == -1){
+      if (mt_number === '444'){
+          if (y_axis_title.indexOf('damage') === -1){
             y_axis_title = y_axis_title+'  damage (eV-barns)'
           }
       }
-      if (mt_number != '444' && mt_number != '301'){
-        if (y_axis_title.indexOf('cross section') == -1){
+      if (mt_number !== '444' && mt_number !== '301'){
+        if (y_axis_title.indexOf('cross section') === -1){
           y_axis_title = y_axis_title + '  cross section (barns)'
         }
       }
