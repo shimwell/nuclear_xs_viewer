@@ -6,19 +6,19 @@
   "dependencies": {
     "bootstrap": "^4.3.1",
     "downloadbutton": "^1.0.0",
-    "js-file-download": "^0.4.7",
+    "js-file-download": "^0.4.8",
     "nw-react-slider": "^2.0.1",
-    "plotly.js": "^1.48.3",
-    "rc-slider": "^8.6.13",
-    "react": "^16.8.6",
+    "plotly.js": "^1.50.0",
+    "rc-slider": "^8.7.1",
+    "react": "^16.10.2",
     "react-bootstrap": "1.0.0-beta.9",
-    "react-dom": "^16.8.6",
+    "react-dom": "^16.10.2",
     "react-download-link": "^2.2.0",
     "react-plotly.js": "^2.3.0",
-    "react-scripts": "3.0.1",
-    "react-select": "3.0.4",
-    "react-table": "6.10.0",
-    "reactstrap": "8.0.0"
+    "react-scripts": "3.2.0",
+    "react-select": "3.0.8",
+    "react-table": "6.10.3",
+    "reactstrap": "8.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
