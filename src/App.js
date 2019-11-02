@@ -26,7 +26,10 @@ import 'rc-slider/assets/index.css';
 import ReactGA from 'react-ga';
 import filterData from "./filterData";
 
+import AxisScaleRadioButton from "./components/AxisScaleRadioButton";
 const REST_API_EXAMPLE_URL = "http://34.77.71.230:8080"
+
+
 // const REST_API_EXAMPLE_URL = process.env.REACT_APP_HOST_IP.slice(0, -1) +":8080"
 // const REST_API_EXAMPLE_URL = "http://" + process.env.REACT_APP_HOST_IP +":8080"
 // const REST_API_EXAMPLE_URL = "http://127.0.0.1:8080"
@@ -205,19 +208,7 @@ function DownloadButton(props) {
   )
 }
 
-function AxisScaleRadioButton(props) {
-  if (Object.keys(props.plotted_data).length === 0 || Object.keys(props.selected).length === 0) {
-    //console.log("nothing plotted");
-    return <br />;
-}
-  return (
-    <label>
-      {props.title}
-      <input type="radio" value={props.label} checked={props.event_handler === props.label} onChange={props.onChange} />
-      {props.label} {"\u00A0"}
-    </label>
-  );
-}
+
 
 function ScaleSlider(props){
   if (Object.keys(props.plotted_data).length === 0 || Object.keys(props.selected).length === 0) {
