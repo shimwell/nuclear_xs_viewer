@@ -1,19 +1,10 @@
 import React, { Component } from "react";
-//import { render } from "react-dom";
-//import logo from './logo.svg';
-
 import "./App.css";
-
 import Select from "react-select";
-
 import Plot from "react-plotly.js";
-
 import ReactTable from "react-table";
-
-import { Container, Row, Col, Button } from "reactstrap";
-
 import Slider, { createSliderWithTooltip } from 'rc-slider';
-
+import { Container, Row, Col, Button } from "reactstrap";
 import ReactGA from "react-ga";
 import { REST_API_EXAMPLE_URL } from "./config";
 import PlotlyGraph from "./components/PlotlyGraph";
@@ -28,11 +19,6 @@ ReactGA.initialize("UA-148582843-1");
 ReactGA.pageview("/homepage");
 
 document.title = 'XSPlot'
-
-function percentFormatter(v) {
-  return `${v}`;
-}
-
 
 class App extends Component {
   constructor(props) {
@@ -56,20 +42,6 @@ class App extends Component {
       x_axis_mutliplier: 0,
       y_axis_mutliplier: 0
     };
-
-    this.handle_meta_data_dropdown_change_function = this.handle_meta_data_dropdown_change_function.bind(this);
-
-    this.handle_xaxis_scale_change = this.handle_xaxis_scale_change.bind(this);
-
-    this.handle_yaxis_scale_change = this.handle_yaxis_scale_change.bind(this);
-
-    this.handle_xaxis_units_change = this.handle_xaxis_units_change.bind(this);
-
-    this.handle_yaxis_units_change = this.handle_yaxis_units_change.bind(this);    
-
-    this.toggleRow = this.toggleRow.bind(this);
-
-    this.handle_clearplot_button_press = this.handle_clearplot_button_press.bind(this);
   }
 
   handle_clearplot_button_press = event =>
@@ -78,39 +50,12 @@ class App extends Component {
       selected: {}
     });
 
-  handle_xaxis_scale_change(event) {
-    // console.log("event.target.value", event.target.value);
+  handle_axis_change = (prop, event) =>
     this.setState({
-      x_axis_scale: event.target.value
-    });
-    // console.log("x_axis_scale", this.state.x_axis_scale);
-  }
-
-  handle_yaxis_scale_change(event) {
-    // console.log("event.target.value", event.target.value);
-    this.setState({
-      y_axis_scale: event.target.value
-    });
-    // console.log("y_axis_scale", this.state.y_axis_scale);
-  }
-
-  handle_xaxis_units_change(value) {
-    // console.log("value", value);
-    this.setState({
-      x_axis_mutliplier: value
+      [prop]: event.target.value
     });
 
-  }
-
-  handle_yaxis_units_change(value) {
-    // console.log("value", value);
-    this.setState({
-      y_axis_mutliplier: value
-    });
-
-  }
-
-  handle_meta_data_dropdown_change_function(optionSelected) {
+  handle_meta_data_dropdown_change_function = optionSelected => {
     this.setState({ loading: true });
     let queryCopy = JSON.parse(JSON.stringify(this.state.query));
     if (optionSelected.value["value"] === "") {
@@ -301,7 +246,7 @@ class App extends Component {
             <AxisScaleRadioButton
               plotted_data={this.state.plotted_data}
               event_handler={this.state.x_axis_scale}
-              onChange={this.handle_xaxis_scale_change}
+              onChange={event => this.handle_axis_change("x_axis_scale", event)}
               label={"log"}
               title="X axis scale "
               x_axis_label={this.state.x_axis_label}
@@ -311,7 +256,7 @@ class App extends Component {
             <AxisScaleRadioButton
               plotted_data={this.state.plotted_data}
               event_handler={this.state.x_axis_scale}
-              onChange={this.handle_xaxis_scale_change}
+              onChange={event => this.handle_axis_change("x_axis_scale", event)}
               label={"lin"}
               title=""
               x_axis_label={this.state.x_axis_label}
@@ -324,7 +269,7 @@ class App extends Component {
             <AxisScaleRadioButton
               plotted_data={this.state.plotted_data}
               event_handler={this.state.y_axis_scale}
-              onChange={this.handle_yaxis_scale_change}
+              onChange={event => this.handle_axis_change("y_axis_scale", event)}
               label={"log"}
               title="Y axis scale "
               x_axis_label={this.state.x_axis_label}
@@ -333,7 +278,7 @@ class App extends Component {
             />
             <AxisScaleRadioButton
               event_handler={this.state.y_axis_scale}
-              onChange={this.handle_yaxis_scale_change}
+              onChange={event => this.handle_axis_change("y_axis_scale", event)}
               label={"lin"}
               title=""
               plotted_data={this.state.plotted_data}
@@ -345,7 +290,7 @@ class App extends Component {
             <br />
 
             <ScaleSlider
-              onChange={this.handle_xaxis_units_change}
+              onChange={event => this.handle_axis_change("x_axis_mutliplier", event)}
               plotted_data={this.state.plotted_data}
               x_axis_label={this.state.x_axis_label}
               y_axis_label={this.state.y_axis_label}
