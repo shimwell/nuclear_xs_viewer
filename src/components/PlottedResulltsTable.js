@@ -7,11 +7,18 @@ const PlottedResulltsTable = ({ query_Results, data, columns, loading }) => {
   }
 
   let dataColection = [];
+  let table_key = [];
 
-  Object.keys(data).forEach(key => dataColection.push(data[key]));
+  Object.keys(props.data).forEach(function(key) {
+    
+    dataColection.push(props.data[key]);
+    
+    table_key.push(props.data[key]["id"]);
+  });
 
   return (
     <ReactTable
+      key={table_key}
       data={dataColection}
       columns={[{ Header: "Plotted data", columns: columns }]}
       showPagination={false}

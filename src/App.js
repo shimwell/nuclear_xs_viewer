@@ -29,9 +29,9 @@ import PlotlyGraph from "./components/PlotlyGraph";
 import AxisScaleRadioButton from "./components/AxisScaleRadioButton";
 import FilterDropdowns from "./components/FilterDropdowns";
 import DownloadButton from "./components/DownloadButton";
+import QueryResulltsTable from "./components/QueryResulltsTable";
 import PlottedResulltsTable from "./components/PlottedResulltsTable";
 import filterData from "./filterData";
-
 
 
 // const REST_API_EXAMPLE_URL = process.env.REACT_APP_HOST_IP.slice(0, -1) +":8080"
@@ -69,33 +69,6 @@ function initializeReactGA() {
   ReactGA.pageview('/homepage');
 }
 initializeReactGA()
-
-function QueryResulltsTable(props) {
-  if (props.query_Results.length === 0) {
-    return <p>No matching results</p>;
-  }
-
-  const table_key = [];
-  for (var j = 0; j < props.query_Results.length; j++) {
-    // table_key.push(props.query_Results[j]["_id"]["$oid"]);
-    table_key.push(props.query_Results[j]["id"]);
-  }
-
-
-  
-  //console.log("table_key", table_key);
-  // console.log("props.data query tabe", props.data);
-  return (
-    <ReactTable
-      key={table_key}
-      data={props.data}
-      columns={[{ Header: "Query results (limited to 30)", columns: props.columns }]}
-      showPagination={false}
-      defaultPageSize={Math.max(3, props.query_Results.length)}
-      loading={props.loading}
-    />
-  );
-}
 
 
 
