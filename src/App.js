@@ -25,9 +25,9 @@ import 'rc-slider/assets/index.css';
 
 import ReactGA from 'react-ga';
 import { REST_API_EXAMPLE_URL } from "./config";
-import DownloadButton from "./components/DownloadButton";
 import AxisScaleRadioButton from "./components/AxisScaleRadioButton";
-
+import FilterDropdowns from "./components/FilterDropdowns";
+import DownloadButton from "./components/DownloadButton";
 import filterData from "./filterData";
 
 
@@ -125,63 +125,6 @@ function PlottedResulltsTable(props) {
   );
 }
 
-function FilterDropdowns(props) {
-  const filter_data = props.filter_data;
-  return (
-    <div>
-      
-      {filter_data.map((x, i) => {
-        const meta_data_dropdown_dict = [];
-        const list_of_dropdown_values = x["distinct_values"];
-        const field_values = x["field"][0];
-
-        meta_data_dropdown_dict.push({
-          value: {
-            field: field_values,
-            value: ""
-          },
-          label: ""
-        });
-
-        for (var j = 0; j < list_of_dropdown_values.length; j++) {
-          meta_data_dropdown_dict.push({
-            value: {
-              field: field_values,
-              value: list_of_dropdown_values[j]
-            },
-            label: list_of_dropdown_values[j]
-          });
-        }
-
-        //<label for="id">Some Label</label>
-        return (
-          <div>
-            <label for={'dropdown_'+field_values.replace(' ','_')}>{field_values}
-          <div class="haha" >
-          <Select
-            id={'dropdown_'+field_values.replace(' ','_')}
-            //name={'dropdown_'+field_values.replace(' ','_')}
-            key={i}
-            options={meta_data_dropdown_dict}
-            placeholder='Select or type ...'
-            name={field_values}
-            // isClearable={true}
-            onChange={props.event_handler}
-            className="meta_data_dropdown" 
-          />
-          
-          </div>
-        
-          </label>
-          </div>
-         
-          
-          
-        );
-      })}
-    </div>
-  );
-}
 
 
 function ScaleSlider(props){
