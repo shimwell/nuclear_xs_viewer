@@ -78,15 +78,6 @@ class App extends Component {
       selected: {}
     });
 
-  make_clear_button() {
-    // console.log("this.state.selected", Object.keys(this.state.selected).length);
-    if (Object.keys(this.state.selected).length === 0 || Object.keys(this.state.plotted_data).length === 0) {
-      return "";
-    } else {
-      return <Button onClick={this.handle_clearplot_button_press}>Clear plot</Button>;
-    }
-  }
-
   handle_xaxis_scale_change(event) {
     // console.log("event.target.value", event.target.value);
     this.setState({
@@ -244,137 +235,145 @@ class App extends Component {
       <Container className="App">
         <Row>
           <Col>
-            <h1 className="heading">XSPlot the nuclear cross section plotter</h1>
-              <p>Search 121,749 cross sections processed with <a href="https://openmc.readthedocs.io">OpenMC</a>.</p>
-              <p>Contribute, raise an issue or request a feature <a href="https://github.com/Shimwell/nuclear_xs_compose">here</a>. Site <a href="https://github.com/Shimwell/nuclear_xs_compose/blob/master/LICENSE"> license </a> </p>
-            </Col>
-          </Row>
-          <Row>
-            <Col md="5" lg="5">
-              <FilterDropdowns
-                filter_data={this.state.filter_data}
-                event_handler={this.handle_meta_data_dropdown_change_function}
-              />
+            <h1 className="heading">
+              XSPlot the nuclear cross section plotter
+            </h1>
+            <p>
+              Search 121,749 cross sections processed with 
+              <a href="https://openmc.readthedocs.io">OpenMC</a>.
+            </p>
+            <p>
+              Contribute, raise an issue or request a feature 
+              <a href="https://github.com/Shimwell/nuclear_xs_compose">here</a>. 
+              Site <a href="https://github.com/Shimwell/nuclear_xs_compose/blob/master/LICENSE"> license </a>
+            </p>
+          </Col>
+        </Row>
+        <Row>
+          <Col md="5" lg="5">
+            <FilterDropdowns
+              filter_data={this.state.filter_data}
+              event_handler={this.handle_meta_data_dropdown_change_function}
+            />
 
-              <br />
-              <br />
+            <br />
+            <br />
 
+            <DownloadButton
+              plotted_data={this.state.plotted_data}
+              title="Download data (json)"
+              endpoint="/download_json"
+            />
 
-              <DownloadButton plotted_data={this.state.plotted_data}
-                              title="Download data (json)"
-                              endpoint="/download_json"
-                              />
-              
-              <br />
-              <br />
+            <br />
+            <br />
 
-              <DownloadButton plotted_data={this.state.plotted_data}
-                              title="Download data (csv)"
-                              endpoint="/download_csv"
-                              />
-              
-              <br />
-              <br />
+            <DownloadButton
+              plotted_data={this.state.plotted_data}
+              title="Download data (csv)"
+              endpoint="/download_csv"
+            />
 
-              {this.make_clear_button()}
+            <br />
+            <br />
 
-            </Col>
-            <Col md="7" lg="7">
-              <PlotlyGraph
-                selected={this.state.selected}
-                plotted_data={this.state.plotted_data}
-                x_axis_label='energy'
-                y_axis_label='cross section'
-                x_axis_scale={this.state.x_axis_scale}
-                y_axis_scale={this.state.y_axis_scale}
+            {Object.keys(this.state.selected).length !== 0 ||
+              (Object.keys(this.state.plotted_data).length !== 0 && (
+                <Button onClick={this.handle_clearplot_button_press}>
+                  Clear plot
+                </Button>
+              ))}
+          </Col>
+          <Col md="7" lg="7">
+            <PlotlyGraph
+              selected={this.state.selected}
+              plotted_data={this.state.plotted_data}
+              x_axis_label="energy"
+              y_axis_label="cross section"
+              x_axis_scale={this.state.x_axis_scale}
+              y_axis_scale={this.state.y_axis_scale}
               x_axis_mutliplier={this.state.x_axis_mutliplier}
               y_axis_mutliplier={this.state.y_axis_mutliplier}
             />
 
             <br />
 
-              <AxisScaleRadioButton
-                plotted_data={this.state.plotted_data}
-                event_handler={this.state.x_axis_scale}
-                onChange={this.handle_xaxis_scale_change}
-                label={"log"}
-                title="X axis scale "
-                x_axis_label={this.state.x_axis_label}
-                y_axis_label={this.state.y_axis_label}  
-                selected={this.state.selected}              
-              />
-              <AxisScaleRadioButton
-                plotted_data={this.state.plotted_data}
-                event_handler={this.state.x_axis_scale}
-                onChange={this.handle_xaxis_scale_change}
-                label={"lin"}
-                title=""
-                x_axis_label={this.state.x_axis_label}
-                y_axis_label={this.state.y_axis_label} 
-                selected={this.state.selected}               
-              />
+            <AxisScaleRadioButton
+              plotted_data={this.state.plotted_data}
+              event_handler={this.state.x_axis_scale}
+              onChange={this.handle_xaxis_scale_change}
+              label={"log"}
+              title="X axis scale "
+              x_axis_label={this.state.x_axis_label}
+              y_axis_label={this.state.y_axis_label}
+              selected={this.state.selected}
+            />
+            <AxisScaleRadioButton
+              plotted_data={this.state.plotted_data}
+              event_handler={this.state.x_axis_scale}
+              onChange={this.handle_xaxis_scale_change}
+              label={"lin"}
+              title=""
+              x_axis_label={this.state.x_axis_label}
+              y_axis_label={this.state.y_axis_label}
+              selected={this.state.selected}
+            />
 
+            <br />
+
+            <AxisScaleRadioButton
+              plotted_data={this.state.plotted_data}
+              event_handler={this.state.y_axis_scale}
+              onChange={this.handle_yaxis_scale_change}
+              label={"log"}
+              title="Y axis scale "
+              x_axis_label={this.state.x_axis_label}
+              y_axis_label={this.state.y_axis_label}
+              selected={this.state.selected}
+            />
+            <AxisScaleRadioButton
+              event_handler={this.state.y_axis_scale}
+              onChange={this.handle_yaxis_scale_change}
+              label={"lin"}
+              title=""
+              plotted_data={this.state.plotted_data}
+              x_axis_label={this.state.x_axis_label}
+              y_axis_label={this.state.y_axis_label}
+              selected={this.state.selected}
+            />
+
+            <br />
+
+            <ScaleSlider
+              onChange={this.handle_xaxis_units_change}
+              plotted_data={this.state.plotted_data}
+              x_axis_label={this.state.x_axis_label}
+              y_axis_label={this.state.y_axis_label}
+              selected={this.state.selected}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col md="12" lg="12">
+            <div>
               <br />
-
-              <AxisScaleRadioButton
-                plotted_data={this.state.plotted_data}
-                event_handler={this.state.y_axis_scale}
-                onChange={this.handle_yaxis_scale_change}
-                label={"log"}
-                title="Y axis scale "
-                x_axis_label={this.state.x_axis_label}
-                y_axis_label={this.state.y_axis_label} 
-                selected={this.state.selected}               
+              <PlottedResulltsTable
+                query_Results={this.state.plotted_data}
+                data={this.state.plotted_data}
+                columns={columns}
+                loading={this.state.loading}
               />
-              <AxisScaleRadioButton
-                event_handler={this.state.y_axis_scale}
-                onChange={this.handle_yaxis_scale_change}
-                label={"lin"}
-                title=""
-                plotted_data={this.state.plotted_data}
-                x_axis_label={this.state.x_axis_label}
-                y_axis_label={this.state.y_axis_label}  
-                selected={this.state.selected}              
+              <br />
+              <QueryResulltsTable
+                query_Results={this.state.query_result}
+                data={this.state.query_result}
+                columns={columns}
+                loading={this.state.loading}
               />
-
-              <br/>
-
-              <ScaleSlider 
-                onChange={this.handle_xaxis_units_change}
-                plotted_data={this.state.plotted_data}
-                x_axis_label={this.state.x_axis_label}
-                y_axis_label={this.state.y_axis_label}  
-                selected={this.state.selected}   
-                />
-
-
-
-            </Col>
-          </Row>
-
-          <Row>
-            <Col md="12" lg="12">
-              <div>
-                <br />
-
-                <PlottedResulltsTable
-                  query_Results={this.state.plotted_data}
-                  data={this.state.plotted_data}
-                  columns={columns}
-                  loading={this.state.loading}
-                />
-                <br />
-                <QueryResulltsTable
-                  query_Results={this.state.query_result}
-                  data={this.state.query_result}
-                  columns={columns}
-                  loading={this.state.loading}
-                />
-
-              </div>
-            </Col>
-          </Row>
-        </Container>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
