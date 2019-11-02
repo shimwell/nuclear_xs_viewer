@@ -24,9 +24,11 @@ import Slider, { createSliderWithTooltip } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
 import ReactGA from 'react-ga';
-import filterData from "./filterData";
 
+import DownloadButton from "./components/DownloadButton";
 import AxisScaleRadioButton from "./components/AxisScaleRadioButton";
+
+import filterData from "./filterData";
 const REST_API_EXAMPLE_URL = "http://34.77.71.230:8080"
 
 
@@ -180,34 +182,6 @@ function FilterDropdowns(props) {
     </div>
   );
 }
-
-function DownloadButton(props) {
-  if (Object.keys(props.plotted_data).length === 0) {
-    return (<br />)
-  }
-
-  var list_of_ids = [];
-  Object.keys(props.plotted_data).map(function(key) {
-    // //console.log("Key: ", { key }, "Value: ", props.plotted_data[key]["_id"]["$oid"]);
-    //console.log("Key: ", { key }, "Value: ", props.plotted_data[key]["_id"]);
-    // list_of_ids.push(props.plotted_data[key]["_id"]["$oid"]);
-    list_of_ids.push(props.plotted_data[key]["id"]);
-  });
-  var string_of_ids = list_of_ids.join(",");
-
-  // string_of_ids = "'" + string_of_ids + "'";
-
-  //console.log("string_of_ids", string_of_ids);
-
-  return (
-    <a href={REST_API_EXAMPLE_URL + props.endpoint +"?ids=" + string_of_ids} download="my_cross_sections.txt">
-      {" "}
-      <Button>{props.title}</Button>
-    </a>
-    
-  )
-}
-
 
 
 function ScaleSlider(props){
