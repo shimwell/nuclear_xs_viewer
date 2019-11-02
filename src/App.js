@@ -1,12 +1,8 @@
-// run this app with npm start
-
 import React, { Component } from "react";
 //import { render } from "react-dom";
 //import logo from './logo.svg';
 
 import "./App.css";
-
-import "bootstrap/dist/css/bootstrap.min.css";
 
 import Select from "react-select";
 
@@ -14,16 +10,11 @@ import Plot from "react-plotly.js";
 
 import ReactTable from "react-table";
 
-import "react-table/react-table.css";
-//import checkboxHOC from "react-table/lib/hoc/selectTable";
-
-//import {Grid, Row, Col} from 'react-bootstrap';
 import { Container, Row, Col, Button } from "reactstrap";
 
 import Slider, { createSliderWithTooltip } from 'rc-slider';
-import 'rc-slider/assets/index.css';
 
-import ReactGA from 'react-ga';
+import ReactGA from "react-ga";
 import { REST_API_EXAMPLE_URL } from "./config";
 import PlotlyGraph from "./components/PlotlyGraph";
 import AxisScaleRadioButton from "./components/AxisScaleRadioButton";
@@ -33,18 +24,10 @@ import PlottedResulltsTable from "./components/PlottedResulltsTable";
 import QueryResulltsTable from "./components/QueryResulltsTable";
 import ScaleSlider from "./components/ScaleSlider";
 import filterData from "./filterData";
-ReactGA.initialize('UA-148582843-1');
-ReactGA.pageview('/homepage');
-
-
-
+ReactGA.initialize("UA-148582843-1");
+ReactGA.pageview("/homepage");
 
 document.title = 'XSPlot'
-
-
-
-
-
 
 function percentFormatter(v) {
   return `${v}`;
@@ -56,10 +39,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      //find_meta_data_fields_and_distinct_entries
-      //find_axis_data_fields
       filter_data: filterData,
-      axis_data: [{"cross section":"cross section","energy":"energy"}], 
+      axis_data: [{ "cross section": "cross section", "energy": "energy" }],
       query: {},
       query_result: [],
       plotted_data: {},
@@ -91,15 +72,11 @@ class App extends Component {
     this.handle_clearplot_button_press = this.handle_clearplot_button_press.bind(this);
   }
 
-  handle_clearplot_button_press(event) {
-    // console.log("clearing plotted data");
+  handle_clearplot_button_press = event =>
     this.setState({
-      plotted_data: {}
-    });
-    this.setState({
+      plotted_data: {},
       selected: {}
     });
-  }
 
   make_clear_button() {
     // console.log("this.state.selected", Object.keys(this.state.selected).length);
@@ -144,20 +121,14 @@ class App extends Component {
 
   handle_meta_data_dropdown_change_function(optionSelected) {
     this.setState({ loading: true });
-    // console.log("new metadata field selected", optionSelected.value);
-
     let queryCopy = JSON.parse(JSON.stringify(this.state.query));
-    // console.log(queryCopy);
-
     if (optionSelected.value["value"] === "") {
       delete queryCopy[optionSelected.value["field"]];
-      // console.log("deleting field from query", optionSelected.value["field"]);
     } else {
       queryCopy[optionSelected.value["field"]] = optionSelected.value["value"];
     }
 
     this.setState({ query: queryCopy }, () => {
-
       fetch(
         REST_API_EXAMPLE_URL +
           "/get_matching_entrys_limited_fields?query=" +
@@ -181,7 +152,6 @@ class App extends Component {
 
     console.log("current query", this.state.query);
   };
-
 
   ReturnColumns = check_box_class => {
     const columns = [
@@ -249,10 +219,7 @@ class App extends Component {
       this.setState({ loading: false });
     }
 
-    // console.log("plotted_dataCopy", plotted_dataCopy);
-    this.setState({ plotted_data: plotted_dataCopy }, () => {
-      // console.log(this.state.plotted_data);
-    });
+    this.setState({ plotted_data: plotted_dataCopy }, () => {});
   }
 
   render() {
@@ -272,13 +239,12 @@ class App extends Component {
     }
 
     const columns = this.ReturnColumns(check_box_class);
-    
+
     return (
-      <div className="App">
-        <Container>
-          <Row>
-            <Col>
-              <h1 className="heading">XSPlot the nuclear cross section plotter</h1>
+      <Container className="App">
+        <Row>
+          <Col>
+            <h1 className="heading">XSPlot the nuclear cross section plotter</h1>
               <p>Search 121,749 cross sections processed with <a href="https://openmc.readthedocs.io">OpenMC</a>.</p>
               <p>Contribute, raise an issue or request a feature <a href="https://github.com/Shimwell/nuclear_xs_compose">here</a>. Site <a href="https://github.com/Shimwell/nuclear_xs_compose/blob/master/LICENSE"> license </a> </p>
             </Col>
@@ -409,7 +375,6 @@ class App extends Component {
             </Col>
           </Row>
         </Container>
-      </div>
     );
   }
 }
