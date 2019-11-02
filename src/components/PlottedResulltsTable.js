@@ -9,11 +9,11 @@ const PlottedResulltsTable = ({ query_Results, data, columns, loading }) => {
   let dataColection = [];
   let table_key = [];
 
-  Object.keys(props.data).forEach(function(key) {
+  Object.keys(data).forEach(function(key) {
     
-    dataColection.push(props.data[key]);
+    dataColection.push(data[key]);
     
-    table_key.push(props.data[key]["id"]);
+    table_key.push(data[key]["id"]);
   });
 
   return (
