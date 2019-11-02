@@ -37,23 +37,6 @@ ReactGA.initialize('UA-148582843-1');
 ReactGA.pageview('/homepage');
 
 
-// const REST_API_EXAMPLE_URL = process.env.REACT_APP_HOST_IP.slice(0, -1) +":8080"
-// const REST_API_EXAMPLE_URL = "http://" + process.env.REACT_APP_HOST_IP +":8080"
-// const REST_API_EXAMPLE_URL = "http://127.0.0.1:8080"
-
-// const TerserPlugin = require('terser-webpack-plugin');
-
-// module.exports = {
-//   mode: 'production',
-//   optimization: {
-//     minimizer: [new TerserPlugin({ /* additional options here */ })],
-//   },
-// };
-
-const style2 = {"white-space":"nowrap"}
-const style = { width: 200, margin: 20 };
-
-
 
 
 document.title = 'XSPlot'
@@ -69,7 +52,6 @@ function percentFormatter(v) {
 
 
 class App extends Component {
-  html;
   constructor(props) {
     super(props);
 
@@ -90,8 +72,8 @@ class App extends Component {
       loading_graph: false,
       requires_axis_selection: true,
       requires_checkbox_selection: true,
-      x_axis_mutliplier:0, 
-      y_axis_mutliplier:0 
+      x_axis_mutliplier: 0,
+      y_axis_mutliplier: 0
     };
 
     this.handle_meta_data_dropdown_change_function = this.handle_meta_data_dropdown_change_function.bind(this);
@@ -186,26 +168,22 @@ class App extends Component {
             return result.json();
           }
         })
-        .then(data => {
-          this.setState({ query_result: data });
-          this.setState({ loading: false });
-          //console.log("state =", this.state);
-        })
-        .catch(err => {
+        .then(data => this.setState({ query_result: data, loading: false }))
+        .catch(err =>
           console.log(
             "Cannot connect to server " +
               REST_API_EXAMPLE_URL +
               "get_matching_entrys_limited_fields?query=" +
               JSON.stringify(this.state.query)
-          );
-        });
+          )
+        );
     });
 
     console.log("current query", this.state.query);
-  }
+  };
 
 
-  ReturnColumns(check_box_class) {
+  ReturnColumns = check_box_class => {
     const columns = [
       {
         id: "checkbox",
@@ -220,37 +198,31 @@ class App extends Component {
             />
           );
         },
-        //sortable: false,
         width: 45
       }
     ];
-    this.state.filter_data.map((x, i) => {
+
+    this.state.filter_data.map((x, i) =>
       columns.push({
         Header: x["field"][0],
         accessor: x["field"][0]
-      });
-    });
+      })
+    );
 
     return columns;
-  }
+  };
 
   toggleRow(filename) {
-    // console.log('row id selected ',filename)
-    this.setState({ loading: true });
-    this.setState({ loading_graph: false });
-    const newSelected = Object.assign({}, this.state.selected);
-    newSelected[filename] = !this.state.selected[filename];
-    // console.log("check box clicked", filename, "state=", newSelected[filename]);
-    this.setState({ selected: newSelected });
+    this.setState({ loading: true, loading_graph: false });
 
-    const select_dic = this.state.selected;
-    // console.log("values");
-    // console.log(Object.values(select_dic));
+    const newSelected = Object.assign({}, this.state.selected);
+
+    newSelected[filename] = !this.state.selected[filename];
+
+    this.setState({ selected: newSelected });
 
     let plotted_dataCopy = JSON.parse(JSON.stringify(this.state.plotted_data));
     if (newSelected[filename] === true) {
-      // this.setState({requires_checkbox_selection: false,});
-      // console.log(REST_API_EXAMPLE_URL + '/get_matching_entry?query={"id":"' + filename + '"}');
       fetch(REST_API_EXAMPLE_URL + '/get_matching_entry?query={"id":"' + filename + '"}')
         .then(result => {
           if (result.ok) {
@@ -259,10 +231,11 @@ class App extends Component {
         })
         .then(data => {
           plotted_dataCopy[filename] = data;
-          this.setState({ plotted_data: plotted_dataCopy });
-          this.setState({ loading_graph: false });
-          this.setState({ loading: false });
-          // console.log("state =", this.state);
+          this.setState({
+            plotted_data: plotted_dataCopy,
+            loading_graph: false,
+            loading: false
+          });
         })
         .catch(err => {
           console.log(
@@ -283,14 +256,10 @@ class App extends Component {
   }
 
   render() {
-
-
-    // const filter_data = this.state.filter_data;
-
-
     const selected = this.state.selected;
 
     var check_box_class;
+
     if (
       Object.keys(selected).length === 0 ||
       Object.keys(selected).every(function(k) {
@@ -304,7 +273,6 @@ class App extends Component {
 
     const columns = this.ReturnColumns(check_box_class);
     
-
     return (
       <div className="App">
         <Container>
@@ -353,11 +321,11 @@ class App extends Component {
                 y_axis_label='cross section'
                 x_axis_scale={this.state.x_axis_scale}
                 y_axis_scale={this.state.y_axis_scale}
-                x_axis_mutliplier={this.state.x_axis_mutliplier}
-                y_axis_mutliplier={this.state.y_axis_mutliplier}
-              />
+              x_axis_mutliplier={this.state.x_axis_mutliplier}
+              y_axis_mutliplier={this.state.y_axis_mutliplier}
+            />
 
-              <br />
+            <br />
 
               <AxisScaleRadioButton
                 plotted_data={this.state.plotted_data}
