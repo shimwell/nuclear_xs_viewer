@@ -32,28 +32,19 @@ const PlotlyGraph = props => {
         "MT number / reaction products"
       ].split(" ");
       var mass_number = props.plotted_data[key]["Mass number"];
-      var incident_particle = "n";
-      var legend_name =
-        element_symbol +
-        mass_number +
-        " (" +
-        incident_particle +
-        "," +
-        products +
-        ") " +
-        library;
+      var legend_name = element_symbol+mass_number + ' '+products+' ' + library
 
-      if (mt_number === "301") {
+      if (mt_number === "MT301") {
         if (y_axis_title.indexOf("heating") === -1) {
           y_axis_title = y_axis_title + "  heating (eV/reaction)";
         }
       }
-      if (mt_number === "444") {
+      if (mt_number === "MT444") {
         if (y_axis_title.indexOf("damage") === -1) {
           y_axis_title = y_axis_title + "  damage (eV-barns)";
         }
       }
-      if (mt_number !== "444" && mt_number !== "301") {
+      if (mt_number !== "MT444" && mt_number !== "MT301") {
         if (y_axis_title.indexOf("cross section") === -1) {
           y_axis_title = y_axis_title + "  cross section (barns)";
         }
