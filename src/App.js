@@ -24,12 +24,12 @@ import Slider, { createSliderWithTooltip } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
 import ReactGA from 'react-ga';
-
+import { REST_API_EXAMPLE_URL } from "./config";
 import DownloadButton from "./components/DownloadButton";
 import AxisScaleRadioButton from "./components/AxisScaleRadioButton";
 
 import filterData from "./filterData";
-const REST_API_EXAMPLE_URL = "http://34.77.71.230:8080"
+
 
 
 // const REST_API_EXAMPLE_URL = process.env.REACT_APP_HOST_IP.slice(0, -1) +":8080"
