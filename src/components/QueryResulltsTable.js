@@ -8,10 +8,9 @@ const QueryResulltsTable = ({ query_Results, data, columns, loading }) => {
 
   let table_key = [];
 
-￼  for (var j = 0; j < query_Results.length; j++) {
-￼
-￼    table_key.push(query_Results[j]["id"]);
-￼  }
+  for (var j = 0; j < query_Results.length; j++) {
+      table_key.push(query_Results[j]["id"]);
+  }
 
   return (
     <ReactTable
