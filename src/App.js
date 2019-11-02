@@ -29,9 +29,12 @@ import PlotlyGraph from "./components/PlotlyGraph";
 import AxisScaleRadioButton from "./components/AxisScaleRadioButton";
 import FilterDropdowns from "./components/FilterDropdowns";
 import DownloadButton from "./components/DownloadButton";
-import QueryResulltsTable from "./components/QueryResulltsTable";
 import PlottedResulltsTable from "./components/PlottedResulltsTable";
+import QueryResulltsTable from "./components/QueryResulltsTable";
+import ScaleSlider from "./components/ScaleSlider";
 import filterData from "./filterData";
+ReactGA.initialize('UA-148582843-1');
+ReactGA.pageview('/homepage');
 
 
 // const REST_API_EXAMPLE_URL = process.env.REACT_APP_HOST_IP.slice(0, -1) +":8080"
@@ -51,41 +54,12 @@ const style2 = {"white-space":"nowrap"}
 const style = { width: 200, margin: 20 };
 
 
-const marks = {
- '-3': 'micro',
-  0: '',
-  3: 'kilo',
-  6: 'Mega',
-  9: 'Giga',
-};
-
-const SliderWithTooltip = createSliderWithTooltip(Slider);
 
 
 document.title = 'XSPlot'
 
-function initializeReactGA() {
-  ReactGA.initialize('UA-148582843-1');
-  ReactGA.pageview('/homepage');
-}
-initializeReactGA()
 
 
-
-function ScaleSlider(props){
-  if (Object.keys(props.plotted_data).length === 0 || Object.keys(props.selected).length === 0) {
-    //console.log("nothing plotted");
-    return <br />;
-}
-
-    return (
-    <span style={style2}>
-      X axis units <label style={style}>
-    <SliderWithTooltip dots min={-3} max={9} marks={marks} step={1} tipFormatter={percentFormatter} onChange={props.onChange} defaultValue={0} />
-    </label>
-    </span>
-    )
-}
 
 
 
