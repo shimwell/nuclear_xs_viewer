@@ -29,6 +29,7 @@ import PlotlyGraph from "./components/PlotlyGraph";
 import AxisScaleRadioButton from "./components/AxisScaleRadioButton";
 import FilterDropdowns from "./components/FilterDropdowns";
 import DownloadButton from "./components/DownloadButton";
+import PlottedResulltsTable from "./components/PlottedResulltsTable";
 import filterData from "./filterData";
 
 
@@ -91,36 +92,6 @@ function QueryResulltsTable(props) {
       columns={[{ Header: "Query results (limited to 30)", columns: props.columns }]}
       showPagination={false}
       defaultPageSize={Math.max(3, props.query_Results.length)}
-      loading={props.loading}
-    />
-  );
-}
-
-function PlottedResulltsTable(props) {
-  if (Object.keys(props.query_Results).length === 0) {
-    return <br />;
-    //console.log("no plotted data so no table");
-  }
-
-  const data = [];
-  const table_key = [];
-  //console.log("props.data plotted table", props.data);
-  Object.keys(props.data).forEach(function(key) {
-    //console.log("props.data", key, props.data[key]);
-    data.push(props.data[key]);
-    // table_key.push(props.data[key]["_id"]["$oid"]);
-    table_key.push(props.data[key]["id"]);
-  });
-
-  //console.log("props.data data.length", data.length);
-
-  return (
-    <ReactTable
-      key={table_key}
-      data={data}
-      columns={[{ Header: "Plotted data", columns: props.columns }]}
-      showPagination={false}
-      defaultPageSize={data.length}
       loading={props.loading}
     />
   );
