@@ -4,7 +4,7 @@ FROM node:12.2.0-stretch as build
 # sudo docker build -t shimwell:nuclear_xs_viewer .
 
 # docker run -v ${PWD}:/app -v /app/node_modules -p 3001:3000 --rm shimwell:nuclear_xs_viewer
-# sudo docker run -it -p 80:80 -rm shimwell:nuclear_xs_viewer
+# sudo docker run -p 80:80 shimwell:nuclear_xs_viewer
 
 # set working directory
 WORKDIR /app
@@ -38,7 +38,7 @@ RUN apt-get install dnsutils --yes
 
 RUN npm update
 
-RUN echo updating app code4.133d6675udds
+RUN echo updating app code4khjfddfgjffdhlt75udds
 COPY . /app
 
 # RUN npm ls
