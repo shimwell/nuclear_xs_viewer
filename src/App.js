@@ -26,6 +26,7 @@ class App extends Component {
 
     this.state = {
       filter_data: filterData,
+      response_filter_data: [],
       axis_data: [{ "cross section": "cross section", energy: "energy" }],
       query: {},
       query_result: [],
@@ -82,6 +83,7 @@ class App extends Component {
           : this.setState({
               query_result: [],
               loading: false,
+              response_filter_data: []
             })
       })
     } else {
@@ -91,13 +93,46 @@ class App extends Component {
 
   issueQuery = () => {
     const { query } = this.state
-    fetch(REST_API_EXAMPLE_URL + "/get_matching_entrys_limited_fields?query=" + JSON.stringify(query))
+    fetch(REST_API_EXAMPLE_URL + "/get_matching_entrys_and_distinct_values_for_fields?query=" + JSON.stringify(query))
       .then(result => {
         if (result.ok) {
           return result.json()
         }
       })
-      .then(data => this.setState({ query_result: data, loading: false }))
+      .then(data => {
+        // Order of Dropdown
+        const order = [
+          "Proton number / element",
+          "Mass number",
+          "Neutron number",
+          "MT number / reaction products",
+          "Library"
+        ];
+        // Data to be added
+        const newData = new Array(order.length);
+        
+        data.dropdown_options.map((key, idx) => {
+          if (key["available_options"] && key["field"]) {
+            const index = order.indexOf(key["field"]);
+            const value = {
+              field: [key["field"]],
+              distinct_values: key["available_options"]
+            };
+            if (index === -1) {
+              newData.push(value);
+            } else {
+              newData[index] = value;
+            }
+          }
+          return true;
+        });
+
+        this.setState({
+          query_result: data.search_results,
+          loading: false,
+          response_filter_data: newData
+        });
+      })
       .catch(err =>
         console.log(
           "Cannot connect to server " +
@@ -212,7 +247,11 @@ class App extends Component {
         <Row>
           <Col md="5" lg="5">
             <FilterDropdowns
-              filter_data={this.state.filter_data}
+              filter_data={
+                this.state.response_filter_data.length === 0
+                  ? this.state.filter_data
+                  : this.state.response_filter_data
+              }
               event_handler={this.handle_meta_data_dropdown_change_function}
             />
 
