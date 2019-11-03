@@ -1,5 +1,8 @@
 import React from "react";
-import Plot from "react-plotly.js";
+import Plotly from "../Plotly";
+import createPlotlyComponent from "react-plotly.js/factory";
+
+const Plot = createPlotlyComponent(Plotly);
 
 const PlotlyGraph = props => {
   const list_of_data_dictionaries = [];
@@ -24,15 +27,16 @@ const PlotlyGraph = props => {
         }
       );
 
-      var [proton_number, element_symbol, element_name] = props.plotted_data[key][
-        "Proton number / element"
-      ].split(" ");
+      var [proton_number, element_symbol, element_name] = props.plotted_data[
+        key
+      ]["Proton number / element"].split(" ");
       var library = props.plotted_data[key]["Library"];
       var [mt_number, products] = props.plotted_data[key][
         "MT number / reaction products"
       ].split(" ");
       var mass_number = props.plotted_data[key]["Mass number"];
-      var legend_name = element_symbol+mass_number + ' '+products+' ' + library
+      var legend_name =
+        element_symbol + mass_number + " " + products + " " + library;
 
       if (mt_number === "MT301") {
         if (y_axis_title.indexOf("heating") === -1) {
