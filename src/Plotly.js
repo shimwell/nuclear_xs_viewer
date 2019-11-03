@@ -1,8 +1,6 @@
 var Plotly = require("plotly.js/lib/core");
-// Plotly.register([
-//   require("plotly.js/lib/heatmap"),
-//   require("plotly.js/lib/choropleth"),
-//   require("plotly.js/lib/scattergeo")
-// ]);
+Plotly.setPlotConfig({
+  showSendToCloud: true
+});
 
 module.exports = Plotly;
