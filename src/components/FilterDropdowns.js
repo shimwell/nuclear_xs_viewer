@@ -8,14 +8,6 @@ const FilterDropdowns = ({ filter_data, event_handler }) => (
       const list_of_dropdown_values = x["distinct_values"]
       const field_values = x["field"][0]
 
-      meta_data_dropdown_dict.push({
-        value: {
-          field: field_values,
-          value: "",
-        },
-        label: "",
-      })
-
       for (var j = 0; j < list_of_dropdown_values.length; j++) {
         meta_data_dropdown_dict.push({
           value: {
