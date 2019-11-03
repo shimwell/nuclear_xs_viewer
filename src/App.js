@@ -42,9 +42,9 @@ class App extends Component {
       x_axis_mutliplier: 0,
       y_axis_mutliplier: 0
     };
+    this.handle_xaxis_units_change = this.handle_xaxis_units_change.bind(this);
   }
 
-  this.handle_xaxis_units_change = this.handle_xaxis_units_change.bind(this);
   
   handle_xaxis_units_change(value) {
     console.log("value", value);
