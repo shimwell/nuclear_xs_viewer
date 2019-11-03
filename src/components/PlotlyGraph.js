@@ -24,7 +24,7 @@ const PlotlyGraph = props => {
         }
       );
 
-      var [element_symbol] = props.plotted_data[key][
+      var [proton_number, element_symbol, element_name] = props.plotted_data[key][
         "Proton number / element"
       ].split(" ");
       var library = props.plotted_data[key]["Library"];
