@@ -44,6 +44,25 @@ class App extends Component {
     };
   }
 
+  this.handle_xaxis_units_change = this.handle_xaxis_units_change.bind(this);
+  
+  handle_xaxis_units_change(value) {
+    console.log("value", value);
+    this.setState({
+      x_axis_mutliplier: value
+    });
+
+  }
+
+  make_clear_button() {
+    // console.log("this.state.selected", Object.keys(this.state.selected).length);
+    if (Object.keys(this.state.selected).length === 0 || Object.keys(this.state.plotted_data).length === 0) {
+      return "";
+    } else {
+      return <Button onClick={this.handle_clearplot_button_press}>Clear plot</Button>;
+    }
+  }
+
   handle_clearplot_button_press = event =>
     this.setState({
       plotted_data: {},
@@ -88,6 +107,8 @@ class App extends Component {
 
     console.log("current query", this.state.query);
   };
+
+
 
   ReturnColumns = check_box_class => {
     const columns = [
@@ -221,13 +242,7 @@ class App extends Component {
 
             <br />
             <br />
-
-            {Object.keys(this.state.selected).length !== 0 ||
-              (Object.keys(this.state.plotted_data).length !== 0 && (
-                <Button onClick={this.handle_clearplot_button_press}>
-                  Clear plot
-                </Button>
-              ))}
+            {this.make_clear_button()}
           </Col>
           <Col md="7" lg="7">
             <PlotlyGraph
@@ -290,7 +305,7 @@ class App extends Component {
             <br />
 
             <ScaleSlider
-              onChange={event => this.handle_axis_change("x_axis_mutliplier", event)}
+              onChange={this.handle_xaxis_units_change}
               plotted_data={this.state.plotted_data}
               x_axis_label={this.state.x_axis_label}
               y_axis_label={this.state.y_axis_label}
