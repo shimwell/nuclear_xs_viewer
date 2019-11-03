@@ -1,32 +1,32 @@
-import React, { Component } from "react";
-import "./App.css";
-import Select from "react-select";
-import Plot from "react-plotly.js";
-import ReactTable from "react-table";
-import Slider, { createSliderWithTooltip } from 'rc-slider';
-import { Container, Row, Col, Button } from "reactstrap";
-import ReactGA from "react-ga";
-import { REST_API_EXAMPLE_URL } from "./config";
-import PlotlyGraph from "./components/PlotlyGraph";
-import AxisScaleRadioButton from "./components/AxisScaleRadioButton";
-import FilterDropdowns from "./components/FilterDropdowns";
-import DownloadButton from "./components/DownloadButton";
-import PlottedResulltsTable from "./components/PlottedResulltsTable";
-import QueryResulltsTable from "./components/QueryResulltsTable";
-import ScaleSlider from "./components/ScaleSlider";
-import filterData from "./filterData";
-ReactGA.initialize("UA-148582843-1");
-ReactGA.pageview("/homepage");
+import React, { Component } from "react"
+import "./App.css"
+// import Select from "react-select";
+// import Plot from "react-plotly.js";
+// import ReactTable from "react-table";
+// import Slider, { createSliderWithTooltip } from 'rc-slider';
+import { Container, Row, Col, Button } from "reactstrap"
+import ReactGA from "react-ga"
+import { REST_API_EXAMPLE_URL } from "./config"
+import PlotlyGraph from "./components/PlotlyGraph"
+import AxisScaleRadioButton from "./components/AxisScaleRadioButton"
+import FilterDropdowns from "./components/FilterDropdowns"
+import DownloadButton from "./components/DownloadButton"
+import PlottedResulltsTable from "./components/PlottedResulltsTable"
+import QueryResulltsTable from "./components/QueryResulltsTable"
+import ScaleSlider from "./components/ScaleSlider"
+import filterData from "./filterData"
+ReactGA.initialize("UA-148582843-1")
+ReactGA.pageview("/homepage")
 
-document.title = 'XSPlot'
+document.title = "XSPlot"
 
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       filter_data: filterData,
-      axis_data: [{ "cross section": "cross section", "energy": "energy" }],
+      axis_data: [{ "cross section": "cross section", energy: "energy" }],
       query: {},
       query_result: [],
       plotted_data: {},
@@ -40,75 +40,73 @@ class App extends Component {
       requires_axis_selection: true,
       requires_checkbox_selection: true,
       x_axis_mutliplier: 0,
-      y_axis_mutliplier: 0
-    };
-    this.handle_xaxis_units_change = this.handle_xaxis_units_change.bind(this);
+      y_axis_mutliplier: 0,
+    }
+    this.handle_xaxis_units_change = this.handle_xaxis_units_change.bind(this)
   }
 
-  
   handle_xaxis_units_change(value) {
-    console.log("value", value);
+    console.log("value", value)
     this.setState({
-      x_axis_mutliplier: value
-    });
-
+      x_axis_mutliplier: value,
+    })
   }
 
   make_clear_button() {
-    // console.log("this.state.selected", Object.keys(this.state.selected).length);
     if (Object.keys(this.state.selected).length === 0 || Object.keys(this.state.plotted_data).length === 0) {
-      return "";
+      return ""
     } else {
-      return <Button onClick={this.handle_clearplot_button_press}>Clear plot</Button>;
+      return <Button onClick={this.handle_clearplot_button_press}>Clear plot</Button>
     }
   }
 
   handle_clearplot_button_press = event =>
     this.setState({
       plotted_data: {},
-      selected: {}
-    });
+      selected: {},
+    })
 
   handle_axis_change = (prop, event) =>
     this.setState({
-      [prop]: event.target.value
-    });
+      [prop]: event.target.value,
+    })
 
-  handle_meta_data_dropdown_change_function = optionSelected => {
-    this.setState({ loading: true });
-    let queryCopy = JSON.parse(JSON.stringify(this.state.query));
-    if (optionSelected.value["value"] === "") {
-      delete queryCopy[optionSelected.value["field"]];
+  handle_meta_data_dropdown_change_function = (optionSelected, { action, name }) => {
+    const { query } = this.state
+    this.setState({ loading: true })
+    if (action === "clear") {
+      delete query[name]
+      this.setState({ query }, () => {
+        Object.keys(query).length > 0
+          ? this.issueQuery()
+          : this.setState({
+              query_result: [],
+              loading: false,
+            })
+      })
     } else {
-      queryCopy[optionSelected.value["field"]] = optionSelected.value["value"];
+      this.setState({ query: { ...query, [name]: optionSelected.value["value"] } }, this.issueQuery)
     }
+  }
 
-    this.setState({ query: queryCopy }, () => {
-      fetch(
-        REST_API_EXAMPLE_URL +
-          "/get_matching_entrys_limited_fields?query=" +
-          JSON.stringify(this.state.query)
+  issueQuery = () => {
+    const { query } = this.state
+    fetch(REST_API_EXAMPLE_URL + "/get_matching_entrys_limited_fields?query=" + JSON.stringify(query))
+      .then(result => {
+        if (result.ok) {
+          return result.json()
+        }
+      })
+      .then(data => this.setState({ query_result: data, loading: false }))
+      .catch(err =>
+        console.log(
+          "Cannot connect to server " +
+            REST_API_EXAMPLE_URL +
+            "get_matching_entrys_limited_fields?query=" +
+            JSON.stringify(query),
+        ),
       )
-        .then(result => {
-          if (result.ok) {
-            return result.json();
-          }
-        })
-        .then(data => this.setState({ query_result: data, loading: false }))
-        .catch(err =>
-          console.log(
-            "Cannot connect to server " +
-              REST_API_EXAMPLE_URL +
-              "get_matching_entrys_limited_fields?query=" +
-              JSON.stringify(this.state.query)
-          )
-        );
-    });
-
-    console.log("current query", this.state.query);
-  };
-
-
+  }
 
   ReturnColumns = check_box_class => {
     const columns = [
@@ -123,95 +121,91 @@ class App extends Component {
               checked={this.state.selected[original.id] === true}
               onChange={() => this.toggleRow(original.id)}
             />
-          );
+          )
         },
-        width: 45
-      }
-    ];
+        width: 45,
+      },
+    ]
 
     this.state.filter_data.map((x, i) =>
       columns.push({
         Header: x["field"][0],
-        accessor: x["field"][0]
-      })
-    );
+        accessor: x["field"][0],
+      }),
+    )
 
-    return columns;
-  };
+    return columns
+  }
 
   toggleRow(filename) {
-    this.setState({ loading: true, loading_graph: false });
+    this.setState({ loading: true, loading_graph: false })
 
-    const newSelected = Object.assign({}, this.state.selected);
+    const newSelected = Object.assign({}, this.state.selected)
 
-    newSelected[filename] = !this.state.selected[filename];
+    newSelected[filename] = !this.state.selected[filename]
 
-    this.setState({ selected: newSelected });
+    this.setState({ selected: newSelected })
 
-    let plotted_dataCopy = JSON.parse(JSON.stringify(this.state.plotted_data));
+    let plotted_dataCopy = JSON.parse(JSON.stringify(this.state.plotted_data))
     if (newSelected[filename] === true) {
       fetch(REST_API_EXAMPLE_URL + '/get_matching_entry?query={"id":"' + filename + '"}')
         .then(result => {
           if (result.ok) {
-            return result.json();
+            return result.json()
           }
         })
         .then(data => {
-          plotted_dataCopy[filename] = data;
+          plotted_dataCopy[filename] = data
           this.setState({
             plotted_data: plotted_dataCopy,
             loading_graph: false,
-            loading: false
-          });
+            loading: false,
+          })
         })
         .catch(err => {
           console.log(
-            "Cannot connect to server " +
-              REST_API_EXAMPLE_URL +
-              '/get_matching_entry?query={"id":"' + filename + '"}'
-          );
-        });
+            "Cannot connect to server " + REST_API_EXAMPLE_URL + '/get_matching_entry?query={"id":"' + filename + '"}',
+          )
+        })
     } else {
-      delete plotted_dataCopy[filename];
-      this.setState({ loading: false });
+      delete plotted_dataCopy[filename]
+      this.setState({ loading: false })
     }
 
-    this.setState({ plotted_data: plotted_dataCopy }, () => {});
+    this.setState({ plotted_data: plotted_dataCopy }, () => {})
   }
 
   render() {
-    const selected = this.state.selected;
+    const selected = this.state.selected
 
-    var check_box_class;
+    var check_box_class
 
     if (
       Object.keys(selected).length === 0 ||
       Object.keys(selected).every(function(k) {
-        return selected[k] === false;
+        return selected[k] === false
       })
     ) {
-      check_box_class = "checkbox_highlighted";
+      check_box_class = "checkbox_highlighted"
     } else {
-      check_box_class = "checkbox";
+      check_box_class = "checkbox"
     }
 
-    const columns = this.ReturnColumns(check_box_class);
+    const columns = this.ReturnColumns(check_box_class)
 
     return (
       <Container className="App">
         <Row>
           <Col>
-            <h1 className="heading">
-              XSPlot the nuclear cross section plotter
-            </h1>
+            <h1 className="heading">XSPlot the nuclear cross section plotter</h1>
             <p>
-              Search 121,749 cross sections processed with 
+              Search 121,749 cross sections processed with
               <a href="https://openmc.readthedocs.io">OpenMC</a>.
             </p>
             <p>
-              Contribute, raise an issue or request a feature 
-              <a href="https://github.com/Shimwell/nuclear_xs_compose">here</a>. 
-              Site <a href="https://github.com/Shimwell/nuclear_xs_compose/blob/master/LICENSE"> license </a>
+              Contribute, raise an issue or request a feature
+              <a href="https://github.com/Shimwell/nuclear_xs_compose">here</a>. Site{" "}
+              <a href="https://github.com/Shimwell/nuclear_xs_compose/blob/master/LICENSE"> license </a>
             </p>
           </Col>
         </Row>
@@ -334,8 +328,8 @@ class App extends Component {
           </Col>
         </Row>
       </Container>
-    );
+    )
   }
 }
 
-export default App;
+export default App
