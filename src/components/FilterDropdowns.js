@@ -8,6 +8,7 @@ const FilterDropdowns = ({ filter_data, event_handler }) => (
       const list_of_dropdown_values = x["distinct_values"];
       const field_values = x["field"][0];
 
+      // this is where I add a blank entry to the list of items in the dropdown box
       meta_data_dropdown_dict.push({
         value: {
           field: field_values,
@@ -36,6 +37,7 @@ const FilterDropdowns = ({ filter_data, event_handler }) => (
                 key={i}
                 options={meta_data_dropdown_dict}
                 placeholder="Select or type ..."
+                // isClearable={true} this shows an X icon but it does not clear the contents
                 name={field_values}
                 onChange={event_handler}
                 className="meta_data_dropdown"
