@@ -15,6 +15,8 @@ import PlottedResulltsTable from "./components/PlottedResulltsTable"
 import QueryResulltsTable from "./components/QueryResulltsTable"
 import ScaleSlider from "./components/ScaleSlider"
 import filterData from "./filterData"
+import Logo from "./logo.png";
+
 ReactGA.initialize("UA-148582843-1")
 ReactGA.pageview("/homepage")
 
@@ -147,18 +149,20 @@ class App extends Component {
     const columns = [
       {
         id: "checkbox",
+        Header:"select",
         accessor: "",
         Cell: ({ original }) => {
           return (
             <input
               type="checkbox"
+              title="Add / remove from the plot"
               className={check_box_class}
               checked={this.state.selected[original.id] === true}
               onChange={() => this.toggleRow(original.id)}
             />
           )
         },
-        width: 45,
+        width: 70,
       },
     ]
 
@@ -231,7 +235,10 @@ class App extends Component {
     return (
       <Container className="App">
         <Row>
-          <Col>
+          <Col md="1" lg="1">
+          <img src={Logo}></img>
+          </Col>
+          <Col md="11" lg="11">
             <h1 className="heading">XSPlot the nuclear cross section plotter</h1>
             <p>
               Search 121,749 cross sections processed with

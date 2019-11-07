@@ -48,9 +48,9 @@ select * {
 }
 
 .checkbox_highlighted {
-  -moz-box-shadow: 0 0 1px 1px rgba(210, 0, 0, 1);
-  -webkit-box-shadow: 0 0 1px 1px rgba(210, 0, 0, 1);
-  box-shadow: 0 0 1px 1px rgba(210, 0, 0, 1);
+  -moz-box-shadow: 0 0 3px 3px rgba(210, 0, 0, 1);
+  -webkit-box-shadow: 0 0 3px 3px rgba(210, 0, 0, 1);
+  box-shadow: 0 0 3px 3px rgba(210, 0, 0, 1);
 }
 
 #axis_data_dropdown_highlighted {
