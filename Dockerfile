@@ -38,7 +38,7 @@ RUN apt-get install dnsutils --yes
 
 RUN npm update
 
-RUN echo updating app code12345678
+RUN echo updating app code1234567
 COPY . /app
 
 # RUN npm ls
@@ -49,10 +49,11 @@ COPY . /app
 
 # RUN npm run build
 # RUN REACT_APP_HOST_IP=http://35.225.255.223 npm run build
-RUN dig +short myip.opendns.com @resolver1.opendns.com
-RUN myip="$(dig +short myip.opendns.com @resolver1.opendns.com)":8080
-RUN echo "My WAN/Public IP address: ${myip}"
-RUN REACT_APP_HOST_IP=${myip} npm run build
+# RUN dig +short myip.opendns.com @resolver1.opendns.com
+# RUN myip="$(dig +short myip.opendns.com @resolver1.opendns.com)":8080
+# RUN echo "My WAN/Public IP address: ${myip}"
+# RUN REACT_APP_HOST_IP=${myip} npm run build
+RUN npm run build
 
 # start app
 # CMD ["npm", "start"]

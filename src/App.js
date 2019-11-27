@@ -5,20 +5,21 @@ import "./App.css"
 // import ReactTable from "react-table";
 // import Slider, { createSliderWithTooltip } from 'rc-slider';
 import { Container, Row, Col, Button } from "reactstrap"
-import ReactGA from "react-ga"
+// import ReactGA from "react-ga"
 import { REST_API_EXAMPLE_URL } from "./config"
 import PlotlyGraph from "./components/PlotlyGraph"
 import AxisScaleRadioButton from "./components/AxisScaleRadioButton"
 import FilterDropdowns from "./components/FilterDropdowns"
 import DownloadButton from "./components/DownloadButton"
+// import DownloadButtonLocal from "./components/DownloadButtonLocal"
 import PlottedResulltsTable from "./components/PlottedResulltsTable"
 import QueryResulltsTable from "./components/QueryResulltsTable"
 import ScaleSlider from "./components/ScaleSlider"
 import filterData from "./filterData"
 import Logo from "./logo.png";
 
-ReactGA.initialize("UA-148582843-1")
-ReactGA.pageview("/homepage")
+// ReactGA.initialize("UA-148582843-1")
+// ReactGA.pageview("/homepage")
 
 document.title = "XSPlot"
 
@@ -46,6 +47,8 @@ class App extends Component {
       y_axis_mutliplier: 0,
     }
     this.handle_xaxis_units_change = this.handle_xaxis_units_change.bind(this)
+    this.downloadContent = this.downloadContent.bind(this)
+    this.downloadCSVContent = this.downloadCSVContent.bind(this)
   }
 
   handle_xaxis_units_change(value) {
@@ -61,6 +64,80 @@ class App extends Component {
     } else {
       return <Button onClick={this.handle_clearplot_button_press}>Clear plot</Button>
     }
+  }
+  
+  make_download_local_json_button(){
+    if (Object.keys(this.state.selected).length === 0 || Object.keys(this.state.plotted_data).length === 0) {
+      return ""
+    } else {
+      return <Button onClick={this.downloadContent}>Download json data</Button>
+    }
+  }
+
+  make_download_local_csv_button(){
+    if (Object.keys(this.state.selected).length === 0 || Object.keys(this.state.plotted_data).length === 0) {
+      return ""
+    } else {
+      return <Button onClick={this.downloadCSVContent}>Download csv data</Button>
+    }
+  }
+
+  downloadCSVContent(){
+    var lines = [];
+    lines.push(' Cross section downloaded from xsplot.com')
+
+    for (var key in this.state.plotted_data) {
+      
+      lines.push(' ')
+      lines.push('Mass number , '.concat(this.state.plotted_data[key]['Mass number']))
+      lines.push('Proton number / element , '.concat(this.state.plotted_data[key]["Proton number / element"]))
+      lines.push('Neutron number , '.concat(this.state.plotted_data[key]["Neutron number"]))
+      lines.push('MT number / reaction products , '.concat(this.state.plotted_data[key]["MT number / reaction products"]))
+      lines.push('Library , '.concat(this.state.plotted_data[key]["Library"]))
+      
+      var [mt_number, products] = this.state.plotted_data[key]["MT number / reaction products"].split(" ");
+
+      if (mt_number === "MT301") {
+        lines.push('Energy (eV) , Heating (eV/reaction)')
+      }
+      
+      if (mt_number === "MT444") {
+        lines.push('Energy (eV) , Damage (eV-barns)')
+      }
+      
+      if (mt_number !== "MT444" && mt_number !== "MT301") {
+        lines.push('Energy (eV) , Cross sections (barns)')
+      }
+      
+      var energy_array = this.state.plotted_data[key]["energy"]
+      var cross_section_array = this.state.plotted_data[key]["cross section"]
+
+      for(let i = 0; i < energy_array.length; i++){
+
+        // console.log(energy_array[i], cross_section_array[i]);
+        lines.push(energy_array[i].toString().concat(' , ').concat(cross_section_array[i].toString()))
+      }
+    
+    }
+    // let contents_of_file = JSON.stringify(this.state.plotted_data)
+    console.log(lines)
+    var atag = document.createElement("a");
+    var file = new Blob([lines.join('\n')], {type: 'text/plain'});
+    atag.href = URL.createObjectURL(file);
+    atag.download = "xsplot.csv";
+    atag.click();
+  }
+
+
+  downloadContent(){
+
+    let contents_of_file = JSON.stringify(this.state.plotted_data)
+    console.log(JSON.stringify(this.state.plotted_data))
+    var atag = document.createElement("a");
+    var file = new Blob([contents_of_file], {type: 'text/plain'});
+    atag.href = URL.createObjectURL(file);
+    atag.download = "xsplot.json";
+    atag.click();
   }
 
   handle_clearplot_button_press = event =>
@@ -214,6 +291,10 @@ class App extends Component {
     this.setState({ plotted_data: plotted_dataCopy }, () => {})
   }
 
+
+  
+  
+
   render() {
     const selected = this.state.selected
 
@@ -245,8 +326,10 @@ class App extends Component {
               <a href="https://openmc.readthedocs.io"> OpenMC</a>.
             </p>
             <p>
-              Contribute, raise an issue or request a feature
-              <a href="https://github.com/Shimwell/nuclear_xs_compose"> here</a>. Site{" "}
+              Contribute, raise an issue or request a feature via
+              <a href="https://github.com/Shimwell/nuclear_xs_compose"> Github</a> or
+              <a href="mailto:drshimwell@gmail.com?Subject=xsplot" target="_top"> email me. </a>
+              Site{" "}
               <a href="https://github.com/Shimwell/nuclear_xs_compose/blob/master/LICENSE"> license </a>
             </p>
           </Col>
@@ -265,20 +348,28 @@ class App extends Component {
             <br />
             <br />
 
-            <DownloadButton
+            {/* <DownloadButton
               plotted_data={this.state.plotted_data}
               title="Download data (json)"
               endpoint="/download_json"
-            />
+            /> */}
 
-            <br />
-            <br />
 
-            <DownloadButton
+            {/* <DownloadButton
               plotted_data={this.state.plotted_data}
               title="Download data (csv)"
               endpoint="/download_csv"
-            />
+            /> */}
+
+            {this.make_download_local_json_button()}
+            <br />
+            <br />
+            {this.make_download_local_csv_button ()}
+
+            {/* <DownloadButtonLocal
+              title="Download data local (json)"
+              plotted_data={this.state.plotted_data}
+              /> */}
 
             <br />
             <br />
