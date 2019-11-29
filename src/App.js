@@ -130,12 +130,15 @@ class App extends Component {
 
 
   downloadContent(){
-    var lines = [];
+    var lines = ['['];
     for (var key in this.state.plotted_data) {
-      lines.push(JSON.stringify(this.state.plotted_data[key]))
+      lines.push(JSON.stringify(this.state.plotted_data[key]).concat(','))
     }
+    var string_for_last_entry = lines[lines.length - 1];
+    lines[lines.length - 1] = string_for_last_entry.substring(0, string_for_last_entry.length - 1);
+    lines.push(']');
     var atag = document.createElement("a");
-    var file = new Blob([lines.join('\n')], {type: 'text/plain'});
+    var file = new Blob([lines.join('')], {type: 'text/plain'});
     atag.href = URL.createObjectURL(file);
     atag.download = "xsplot.json";
     atag.click();
@@ -328,8 +331,8 @@ class App extends Component {
             </p>
             <p>
               Contribute, raise an issue or request a feature via
-              <a href="https://github.com/Shimwell/nuclear_xs_compose"> Github</a> or
-              <a href="mailto:drshimwell@gmail.com?Subject=xsplot" target="_top"> email me. </a>
+              <a href="https://github.com/Shimwell/nuclear_xs_compose" title='Contribute, raise an issue or request a feature'> Github</a> or
+              <a href="mailto:drshimwell@gmail.com?Subject=xsplot" target="_top" title="email me"> email me. </a>
               Site{" "}
               <a href="https://github.com/Shimwell/nuclear_xs_compose/blob/master/LICENSE"> license </a>
             </p>
