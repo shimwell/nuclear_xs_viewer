@@ -130,11 +130,12 @@ class App extends Component {
 
 
   downloadContent(){
-
-    let contents_of_file = JSON.stringify(this.state.plotted_data)
-    console.log(JSON.stringify(this.state.plotted_data))
+    var lines = [];
+    for (var key in this.state.plotted_data) {
+      lines.push(JSON.stringify(this.state.plotted_data[key]))
+    }
     var atag = document.createElement("a");
-    var file = new Blob([contents_of_file], {type: 'text/plain'});
+    var file = new Blob([lines.join('\n')], {type: 'text/plain'});
     atag.href = URL.createObjectURL(file);
     atag.download = "xsplot.json";
     atag.click();
