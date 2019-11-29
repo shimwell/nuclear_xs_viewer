@@ -114,7 +114,7 @@ const PlotlyGraph = props => {
         },
         showlegend: true,
         legend: {
-          x: 0.7,
+        //   x: 0.7,
           y: 0.9
         }
       }}
