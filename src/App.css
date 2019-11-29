@@ -23,6 +23,7 @@
   float: right;
   width: 200px;
   padding-left: 10px;
+  padding-top: 10px;
 }
 
 select * {
@@ -57,4 +58,17 @@ select * {
   -moz-box-shadow: 0 0 1px 1px rgba(210, 0, 0, 1);
   -webkit-box-shadow: 0 0 1px 1px rgba(210, 0, 0, 1);
   box-shadow: 0 0 1px 1px rgba(210, 0, 0, 1);
+}
+
+
+.App.container {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.mb-1.row {
+  padding-top: 10px;
 }

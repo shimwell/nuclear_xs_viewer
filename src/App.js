@@ -335,7 +335,7 @@ class App extends Component {
           </Col>
         </Row>
         <Row>
-          <Col md="5" lg="5">
+          <Col md="4" lg="4">
             <FilterDropdowns
               filter_data={
                 this.state.response_filter_data.length === 0
@@ -375,7 +375,7 @@ class App extends Component {
             <br />
             {this.make_clear_button()}
           </Col>
-          <Col md="7" lg="7">
+          <Col md="8" lg="8">
             <PlotlyGraph
               selected={this.state.selected}
               plotted_data={this.state.plotted_data}
