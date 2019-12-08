@@ -38,7 +38,7 @@ RUN apt-get install dnsutils --yes
 
 RUN npm update
 
-RUN echo updating app 123456789
+RUN echo updating app 1234567891
 COPY . /app
 
 # RUN npm ls
@@ -61,4 +61,5 @@ RUN npm run build
 FROM nginx:1.16.0-alpine
 COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
+EXPOSE 443
 CMD ["nginx", "-g", "daemon off;"]

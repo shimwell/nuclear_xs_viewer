@@ -1,1 +1,1 @@
-export const REST_API_EXAMPLE_URL = "https://xsplot.com:443";
+export const REST_API_EXAMPLE_URL = "https://xsplot.com:8080";
