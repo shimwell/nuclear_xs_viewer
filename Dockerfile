@@ -3,12 +3,10 @@ FROM node:12.2.0-stretch as build
 
 # sudo docker build -t shimwell:nuclear_xs_viewer .
 
-# docker run -v ${PWD}:/app -v /app/node_modules -p 3001:3000 --rm shimwell:nuclear_xs_viewer
-# sudo docker run -p 80:80 shimwell:nuclear_xs_viewer
+# docker run -p 80:80 shimwell:nuclear_xs_viewer
 
 # set working directory
 WORKDIR /app
-
 
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
@@ -38,21 +36,16 @@ RUN apt-get install dnsutils --yes
 
 RUN npm update
 
-RUN echo updating app 12345678
+RUN echo updating app 13234567891
 COPY . /app
 
-# RUN npm ls
-# ENV HOST_IP = 34.68.223.199
 
-# ARG webhostip
-# RUN REACT_APP_HOST_IP=$webhostip npm run build
+# this ip address should come from the docker-compose file
+# currently it is hard coded here but this is not ideal
+ENV REACT_APP_ENDPOINT="http://34.77.71.230:8080"
 
-# RUN npm run build
-# RUN REACT_APP_HOST_IP=http://35.225.255.223 npm run build
-# RUN dig +short myip.opendns.com @resolver1.opendns.com
-# RUN myip="$(dig +short myip.opendns.com @resolver1.opendns.com)":8080
-# RUN echo "My WAN/Public IP address: ${myip}"
-# RUN REACT_APP_HOST_IP=${myip} npm run build
+RUN echo "this is the value of REACT_APP_ENDPOINT $REACT_APP_ENDPOINT which is used in App.js"
+
 RUN npm run build
 
 # start app

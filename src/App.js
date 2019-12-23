@@ -1,27 +1,19 @@
 import React, { Component } from "react"
 import "./App.css"
-// import Select from "react-select";
-// import Plot from "react-plotly.js";
-// import ReactTable from "react-table";
-// import Slider, { createSliderWithTooltip } from 'rc-slider';
 import { Container, Row, Col, Button } from "reactstrap"
-// import ReactGA from "react-ga"
-import { REST_API_EXAMPLE_URL } from "./config"
+import { REACT_APP_ENDPOINT } from "./config"
 import PlotlyGraph from "./components/PlotlyGraph"
 import AxisScaleRadioButton from "./components/AxisScaleRadioButton"
 import FilterDropdowns from "./components/FilterDropdowns"
-import DownloadButton from "./components/DownloadButton"
-// import DownloadButtonLocal from "./components/DownloadButtonLocal"
 import PlottedResulltsTable from "./components/PlottedResulltsTable"
 import QueryResulltsTable from "./components/QueryResulltsTable"
 import ScaleSlider from "./components/ScaleSlider"
 import filterData from "./filterData"
 import Logo from "./logo.png";
 
-// ReactGA.initialize("UA-148582843-1")
-// ReactGA.pageview("/homepage")
 
 document.title = "XSPlot"
+
 
 class App extends Component {
   constructor(props) {
@@ -176,7 +168,7 @@ class App extends Component {
 
   issueQuery = () => {
     const { query } = this.state
-    fetch(REST_API_EXAMPLE_URL + "/get_matching_entrys_and_distinct_values_for_fields?query=" + JSON.stringify(query))
+    fetch(REACT_APP_ENDPOINT + "/get_matching_entrys_and_distinct_values_for_fields?query=" + JSON.stringify(query))
       .then(result => {
         if (result.ok) {
           return result.json()
@@ -219,8 +211,8 @@ class App extends Component {
       .catch(err =>
         console.log(
           "Cannot connect to server " +
-            REST_API_EXAMPLE_URL +
-            "get_matching_entrys_limited_fields?query=" +
+            REACT_APP_ENDPOINT +
+            "get_matching_entrys_and_distinct_values_for_fields?query=" +
             JSON.stringify(query),
         ),
       )
@@ -268,7 +260,7 @@ class App extends Component {
 
     let plotted_dataCopy = JSON.parse(JSON.stringify(this.state.plotted_data))
     if (newSelected[filename] === true) {
-      fetch(REST_API_EXAMPLE_URL + '/get_matching_entry?query={"id":"' + filename + '"}')
+      fetch(REACT_APP_ENDPOINT + '/get_matching_entry?query={"id":"' + filename + '"}')
         .then(result => {
           if (result.ok) {
             return result.json()
@@ -284,7 +276,7 @@ class App extends Component {
         })
         .catch(err => {
           console.log(
-            "Cannot connect to server " + REST_API_EXAMPLE_URL + '/get_matching_entry?query={"id":"' + filename + '"}',
+            "Cannot connect to server " + REACT_APP_ENDPOINT + '/get_matching_entry?query={"id":"' + filename + '"}',
           )
         })
     } else {
@@ -352,28 +344,10 @@ class App extends Component {
             <br />
             <br />
 
-            {/* <DownloadButton
-              plotted_data={this.state.plotted_data}
-              title="Download data (json)"
-              endpoint="/download_json"
-            /> */}
-
-
-            {/* <DownloadButton
-              plotted_data={this.state.plotted_data}
-              title="Download data (csv)"
-              endpoint="/download_csv"
-            /> */}
-
             {this.make_download_local_json_button()}
             <br />
             <br />
             {this.make_download_local_csv_button ()}
-
-            {/* <DownloadButtonLocal
-              title="Download data local (json)"
-              plotted_data={this.state.plotted_data}
-              /> */}
 
             <br />
             <br />
