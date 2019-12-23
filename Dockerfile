@@ -39,13 +39,9 @@ RUN npm update
 RUN echo updating app 13234567891
 COPY . /app
 
+ARG REACT_APP_ENDPOINT
 
-# this ip address should come from the docker-compose file
-# currently it is hard coded here but this is not ideal
-RUN echo "this is the value of REACT_APP_ENDPOINT $REACT_APP_ENDPOINT which is suppose to be pass by the docker-compose but not working"
-# as the REACT_APP_ENDPOINT value stated in docker-compose has not got through to this docker image, the REACT_APP_ENDPOINT is now defined below
-ENV REACT_APP_ENDPOINT="http://34.77.71.230:8080"
-RUN echo "this is the new value of REACT_APP_ENDPOINT $REACT_APP_ENDPOINT which is used in App.js"
+RUN echo "this is the value of REACT_APP_ENDPOINT $REACT_APP_ENDPOINT "
 
 RUN npm run build
 
