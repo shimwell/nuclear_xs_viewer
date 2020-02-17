@@ -1,0 +1,1 @@
+docker push gcr.io/xsplot-cloud-run/view:latest
