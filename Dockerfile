@@ -15,6 +15,10 @@ ENV NODE_OPTIONS="–max-old-space-size=2048"
 # install and cache app dependencies
 COPY package.json /app/package.json
 
+# ubuntu 18.04 might need 
+# curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -       
+# apt -y install nodejs make gcc g++
+
 RUN npm version patch
 
 RUN npm install
