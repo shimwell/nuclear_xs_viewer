@@ -16,23 +16,29 @@ from natsort import natsorted
 
 
 
-
- 
-
-
-collection, client, db = connect_to_database()
+collection, client, db = connect_to_atlas_database()
+# collection, client, db = connect_to_database()
 # collection, client, db = connect_to_docker_database()
 
-all_database_fields = get_database_fields(collection)
+try:
+    all_database_fields = get_database_fields(collection)
+except:
+    #the free tier of mongo atlas does not allow use of map reduce so here is the hard codes answer
+    all_database_fields = ["Proton number / element", "Mass number","Neutron number", "MT number / reaction products", "Library", "cross section", "energy"]
 print('all_database_fields',all_database_fields)
 
-# # meta_data_fields = get_database_fields(collection, ignore_fields=['Time [sec]', 'Stroke', 'Extens', 'Load', 'Temp1', 'Temp2', 'Temp3'])
-# # print(meta_data_fields)
+try:
+    meta_data_fields = find_all_fields_not_of_a_particular_types_in_database(collection,'list')
+except:
+    #the free tier of mongo atlas does not allow use of map reduce so here is the hard codes answer
+    meta_data_fields = ["Proton number / element", "Mass number","Neutron number", "MT number / reaction products", "Library"]
 
-meta_data_fields = find_all_fields_not_of_a_particular_types_in_database(collection,'list')
 print('meta_data_fields',meta_data_fields)
 
-axis_option_fields = find_all_fields_of_a_particular_types_in_database(collection,'list')
+try:
+    axis_option_fields = find_all_fields_of_a_particular_types_in_database(collection,'list')
+except:
+    axis_option_fields = ["cross section", "energy"]
 print('axis_option_fields',axis_option_fields)
 
 # metadata_values=[]

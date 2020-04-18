@@ -1,4 +1,4 @@
-# import pandas as pd
+import pandas as pd
 import os
 import json
 import pprint
@@ -8,6 +8,26 @@ from pymongo import MongoClient
 from bson.code import Code
 import socket
 
+
+def connect_to_atlas_database(db_name='my_database',collection_name='collection_one'):
+    # from stich website
+    # connection_String = "mongodb+srv://<username>:<password>@cluster0-ha2ac.gcp.mongodb.net/test?retryWrites=true&w=majority"
+    # host = connection_String.replace('<username>','xsplotter').replace('<password>','xsplotterpw')
+    
+    #connection_String = "mongodb://<USERNAME>:<PASSWORD>@stitch.mongodb.com:27020/?authMechanism=PLAIN&authSource=%24external&ssl=true&appName=xsplot-stitch-kxozw:mongodb-atlas:local-userpass"
+    # host = connection_String.replace('<username>','xsplotter').replace('<password>','xsplotterpw')
+    
+    # from mongo atlas
+    # connection_String = "mongodb+srv://xsplotter:<password>@cluster0-ha2ac.gcp.mongodb.net/test?retryWrites=true&w=majority"
+    connection_String = "mongodb+srv://xsplotter:xsplotterpw@cluster0-ha2ac.gcp.mongodb.net/test?retryWrites=true&w=majority"
+    host = connection_String.replace('<password>','xsplotterpw')
+    # host = "mongodb+srv://jshim:87LYffXlEpW4k6iE@cluster0-wmnjb.mongodb.net/test?retryWrites=true&w=majority"
+    client = MongoClient(host, 27017)
+    db = client[db_name]
+    collection = db[collection_name]
+    print('connected to atlas database')
+    return collection, client, db
+
 def connect_to_database(db_name='my_database',collection_name='collection_one'):
     ''' Creates a local MongoDB database called my_database and connects to it
         defaults are provided for the names
@@ -15,7 +35,7 @@ def connect_to_database(db_name='my_database',collection_name='collection_one'):
     client = MongoClient('localhost', 27017)
     db = client[db_name]
     collection = db[collection_name]
-    print('connected to regular database')
+    print('connected to database')
     return collection, client, db
 
 def connect_to_docker_database(db_name='my_database',collection_name='collection_one'):
@@ -25,11 +45,10 @@ def connect_to_docker_database(db_name='my_database',collection_name='collection
     client = MongoClient(host, 27017)
     db = client[db_name]
     collection = db[collection_name]
-    print('connected to docker database')
+    print('connected to database')
     return collection, client, db    
 
 def delete_database(client, db_name='my_database'):
-
     try:
       client.drop_database(db_name)
       print('database deleted')
@@ -42,10 +61,10 @@ def upload_json_objects_to_database(data,collection):
         for i, item in enumerate(data):
           try:
             print('inserting entry into database ',i)
-            collection.insert_one(item)
+            collection.insert_many(item)
           except:
-            print('inserting entry into database failed',i)
-            print('failing filename is ' ,item['filename'])
+            print('FAILED inserting entry into database',i)
+            # print('failing json object is ' ,item)
 
     else:
         collection.insert_one(data)
@@ -156,20 +175,17 @@ if __name__ == '__main__':
 
 
   collection, client, db = connect_to_database()
+  # collection, client, db = connect_to_docker_database()
 
-  query = {'uploader':'shimwell','filename':'granta_upload_files/Small Punch Creep 113.txt'}
+  query = {'mass number':5}
 
   myresults=collection.find(query)
 
   print('number of results found = ' ,myresults.count())
 
-  print('current uploader ',myresults[0]['uploader']) 
+  print('current reaction ',myresults[0]['reaction']) 
 
-  new_values = { "$set":{'uploader':'Mark','filename':'granta_upload_files/Small Punch Creep 113.txt'}}
-
-  collection.update_one(query, editted_results)
-
-
+ 
 
 
 
