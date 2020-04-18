@@ -1,6 +1,6 @@
 {
   "name": "nuclear_xs_viewer",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "homepage": "./",
   "private": true,
   "dependencies": {
